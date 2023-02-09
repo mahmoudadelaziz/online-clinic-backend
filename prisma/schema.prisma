@@ -11,14 +11,77 @@ datasource db {
 }
 
 model Patient {
-  id Int @id @default(autoincrement())
-  firstName String @db.VarChar(12)
-  lastName String @db.VarChar(12)
-  username String @db.VarChar(12)
-  email String @db.VarChar(30)
-  phoneNumber String @db.VarChar(12)
-  password  String @db.VarChar(12)
-  storeName String @db.VarChar(12)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id            Int             @id @default(autoincrement())
+  firstName     String
+  lastName      String
+  username      String
+  password      String
+  email         String
+  phoneNumber   String
+  reviews       PatientReview[]
+  prescriptions Prescription[]
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+}
+
+model PatientReview {
+  id             Int      @id @default(autoincrement())
+  reviewedDoctor Doctor   @relation(fields: [doctorId], references: [id])
+  doctorId       Int
+  reviewWriter   Patient  @relation(fields: [patientId], references: [id])
+  patientId      Int
+  review         String
+  rating         Int
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model Location {
+  id       Int     @id @default(autoincrement())
+  doctor   Doctor?
+  street   String
+  city     String
+  province String
+  lat      Decimal
+  lng      Decimal
+}
+
+model Doctor {
+  id             Int             @id @default(autoincrement())
+  firstName      String
+  lastName       String
+  username       String
+  password       String
+  email          String
+  phoneNumber    String
+  specialization String
+  appointments   Appointment[]
+  reviews        PatientReview[]
+  prescriptions  Prescription[]
+  location       Location        @relation(fields: [locationId], references: [id])
+  locationId     Int             @unique
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+}
+
+model Prescription {
+  id            Int         @id @default(autoincrement())
+  doctor        Doctor      @relation(fields: [doctorId], references: [id])
+  doctorId      Int
+  patient       Patient     @relation(fields: [patientId], references: [id])
+  patientId     Int
+  appointment   Appointment @relation(fields: [appointmentId], references: [id])
+  appointmentId Int
+  diagnoese     String
+  drugs         String
+}
+
+model Appointment {
+  id           Int            @id @default(autoincrement())
+  doctor       Doctor         @relation(fields: [doctorId], references: [id])
+  doctorId     Int
+  type         String
+  at           DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  Prescription Prescription[]
 }
