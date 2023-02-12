@@ -5,12 +5,14 @@ export const errorHandler = (
   res: Response,
   next: NextFunction
 ) => {
-  if (!err.status) {
-    err.status = 500;
-  }
   if (!err.message) {
-    err.message = "Something went wrong";
+    err.message = "Something went wrong!";
   }
-  res.json({ status: err.status, message: err.message, stack: err.stack });
-  next();
+  if (err.name === "Validation Error") {
+    return res.status(400).json({ message: err.message, stack: err.stack });
+  }
+  return res.status(500).json({
+    message: err.message,
+    stack: err.stack,
+  });
 };
