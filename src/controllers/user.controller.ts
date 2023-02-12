@@ -1,6 +1,7 @@
 import { NextFunction, Response, Request } from "express";
 import { validationResult } from "express-validator";
-import { createUser } from "../services/user.service";
+import { createUser, loginUser } from "../services/user.service";
+
 export const userSignup = async (
   req: Request,
   res: Response,
@@ -8,7 +9,9 @@ export const userSignup = async (
 ) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
+    const error = new Error("Bad Request");
+    error.name = "Validation Error";
+    next(error);
   }
   try {
     const { firstName, lastName, email, password, phoneNumber, username } =
@@ -21,9 +24,32 @@ export const userSignup = async (
       phoneNumber,
       username,
     });
-    res.send({
+    res.json({
       message: "User Signed Up Successfully",
       user: { username: result.username, token: result.token },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const userLogin = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const error = new Error("Bad Request");
+    error.name = "Validation Error";
+    next(error);
+  }
+  try {
+    const { username, password } = req.body;
+    const token = await loginUser({ username, password });
+    res.json({
+      message: "User Logged In Successfully",
+      token,
     });
   } catch (error) {
     next(error);
