@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/Amrnash/online-clinic-backend#readme",
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
     "@types/express": "^4.17.16",
     "@types/morgan": "^1.9.4",
     "@types/node": "^18.11.18",
