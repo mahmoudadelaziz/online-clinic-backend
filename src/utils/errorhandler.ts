@@ -11,5 +11,6 @@ export const errorHandler = (
   if (!err.message) {
     err.message = "Something went wrong";
   }
-  res.json({ error: err });
+  res.json({ status: err.status, message: err.message, stack: err.stack });
+  next();
 };
