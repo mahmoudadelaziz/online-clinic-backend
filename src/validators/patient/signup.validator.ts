@@ -1,7 +1,7 @@
 import { body } from "express-validator";
 
-export const userLoginValidator = [
-  body(["username"])
+export const patientSignupValidators = [
+  body(["firstName", "lastName", "username"])
     .isString()
     .trim()
     .toLowerCase()
@@ -10,5 +10,7 @@ export const userLoginValidator = [
     .withMessage("Must be atleast 3 characters long")
     .isLength({ max: 12 })
     .withMessage("Must be no more than 12 characters long."),
+  body("email").isEmail().normalizeEmail(),
   body("password").isString().isLength({ max: 16, min: 4 }),
+  body("phoneNumber").isMobilePhone("ar-EG"),
 ];

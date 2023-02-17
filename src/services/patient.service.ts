@@ -4,8 +4,8 @@ import { hash, compare } from "bcryptjs";
 
 const prisma = new PrismaClient();
 
-export namespace UserService {
-  type UserSignUpData = {
+export namespace PatientService {
+  type PatientSignUpData = {
     firstName: string;
     lastName: string;
     email: string;
@@ -13,7 +13,7 @@ export namespace UserService {
     phoneNumber: string;
     username: string;
   };
-  export const createUser = async (user: UserSignUpData) => {
+  export const createPatient = async (user: PatientSignUpData) => {
     try {
       // check if user already exists
       const userExists = !!(await prisma.patient.findFirst({
@@ -35,11 +35,11 @@ export namespace UserService {
     }
   };
 
-  type UserLoginData = {
+  type PatientLoginData = {
     username: string;
     password: string;
   };
-  export const loginUser = async (userData: UserLoginData) => {
+  export const loginPatient = async (userData: PatientLoginData) => {
     try {
       const user = await prisma.patient.findFirst({
         where: {
@@ -60,7 +60,7 @@ export namespace UserService {
     }
   };
 
-  export const deleteUserById = async (id: string) => {
+  export const deletePatientById = async (id: string) => {
     try {
       await prisma.patient.delete({
         where: {
@@ -71,9 +71,9 @@ export namespace UserService {
       throw new Error("UserId is not valid");
     }
   };
-  export const updateUserById = async (
+  export const updatePatientById = async (
     id: string,
-    data: Partial<UserSignUpData>
+    data: Partial<PatientSignUpData>
   ) => {
     try {
       const updatedUser = await prisma.patient.update({

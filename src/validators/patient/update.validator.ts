@@ -1,6 +1,6 @@
 import { body } from "express-validator";
 
-export const userUpdateValidator = [
+export const patientUpdateValidator = [
   body(["firstName", "lastName", "username"])
     .isString()
     .trim()

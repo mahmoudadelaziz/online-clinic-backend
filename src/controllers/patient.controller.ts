@@ -1,8 +1,8 @@
 import { NextFunction, Response, Request } from "express";
 import { validationResult } from "express-validator";
-import { UserService } from "../services/user.service";
+import { PatientService } from "../services/patient.service";
 
-export const userSignup = async (
+export const patientSignup = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -16,7 +16,7 @@ export const userSignup = async (
   try {
     const { firstName, lastName, email, password, phoneNumber, username } =
       req.body;
-    const result = await UserService.createUser({
+    const result = await PatientService.createPatient({
       firstName,
       lastName,
       email,
@@ -35,7 +35,7 @@ export const userSignup = async (
   }
 };
 
-export const userLogin = async (
+export const patientLogin = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -48,7 +48,7 @@ export const userLogin = async (
   }
   try {
     const { username, password } = req.body;
-    const token = await UserService.loginUser({ username, password });
+    const token = await PatientService.loginPatient({ username, password });
     return res.json({
       message: "User Logged In Successfully",
       token,
@@ -58,7 +58,7 @@ export const userLogin = async (
   }
 };
 
-export const deleteUserById = async (
+export const deletePatientById = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -68,14 +68,14 @@ export const deleteUserById = async (
     return next(new Error("User id must be provided"));
   }
   try {
-    await UserService.deleteUserById(id);
+    await PatientService.deletePatientById(id);
     return res.json({ message: "User is deleted successfully" });
   } catch (error) {
     next(error);
   }
 };
 
-export const updateUserById = async (
+export const updatePatientById = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -86,7 +86,7 @@ export const updateUserById = async (
   }
   try {
     const updateData = req.body;
-    const updatedUser = await UserService.updateUserById(id, updateData);
+    const updatedUser = await PatientService.updatePatientById(id, updateData);
     return res.json({
       message: "User data is updated successfully",
       data: { username: updatedUser.username, email: updatedUser.email },
