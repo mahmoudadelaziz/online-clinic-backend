@@ -25,7 +25,7 @@ export const patientSignup = async (
       username,
     });
     if (result) {
-      res.json({
+      return res.json({
         message: "User Signed Up Successfully",
         user: { username: result.username, token: result.token },
       });
