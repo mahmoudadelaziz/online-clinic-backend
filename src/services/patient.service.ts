@@ -21,6 +21,7 @@ export namespace PatientService {
           email: user.email,
         },
       }));
+      console.log(userExists);
       if (userExists) {
         throw new Error("A user with this email already exists");
       }
@@ -31,7 +32,7 @@ export namespace PatientService {
       const token = jwt.sign(user, process.env.JWT_SECRET as jwt.Secret);
       return { token, username: newUser.username };
     } catch (error: any) {
-      new Error(error);
+      throw new Error(error);
     }
   };
 
