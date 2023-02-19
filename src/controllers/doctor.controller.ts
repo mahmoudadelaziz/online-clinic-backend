@@ -22,6 +22,7 @@ export const doctorSignup = async (
       phoneNumber,
       username,
       specialization,
+      locationId,
     } = req.body;
     const result = await DoctorService.createDoctor({
       firstName,
@@ -31,6 +32,7 @@ export const doctorSignup = async (
       phoneNumber,
       username,
       specialization,
+      locationId,
     });
     if (result) {
       return res.json({

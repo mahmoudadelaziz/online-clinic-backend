@@ -1,5 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { LocationService } from "../services";
+import { validationResult } from "express-validator";
+
 export const getAllLocations = async (
   req: Request,
   res: Response,
@@ -32,6 +34,13 @@ export const createLocation = async (
   next: NextFunction
 ) => {
   try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      const error = new Error();
+      error.name = "Validation Error";
+      error.message = "Cannot create location, the provided data is invalid";
+      throw error;
+    }
     const { street, city, province, lat, lng } = req.body;
     const locationData = {
       street,
@@ -53,6 +62,13 @@ export const updateLocationById = async (
   next: NextFunction
 ) => {
   try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      const error = new Error();
+      error.name = "Validation Error";
+      error.message = "Cannot update location, the provided data is invalid";
+      throw error;
+    }
     const id = req.params.id;
     const updateData = req.body;
     if ("lat" in updateData) updateData.lat = Number(updateData.lat);

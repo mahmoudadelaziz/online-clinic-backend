@@ -43,7 +43,7 @@ export namespace DoctorService {
   };
   export const loginDoctor = async (doctorData: DoctorLoginData) => {
     try {
-      const doctor = await prisma.patient.findFirst({
+      const doctor = await prisma.doctor.findFirst({
         where: {
           username: doctorData.username,
         },
@@ -67,7 +67,7 @@ export namespace DoctorService {
 
   export const deleteDoctorById = async (id: string) => {
     try {
-      await prisma.patient.delete({
+      await prisma.doctor.delete({
         where: {
           id: Number(id),
         },
@@ -81,7 +81,7 @@ export namespace DoctorService {
     data: Partial<DoctorSignUpData>
   ) => {
     try {
-      const updatedDoctor = await prisma.patient.update({
+      const updatedDoctor = await prisma.doctor.update({
         where: {
           id: Number(id),
         },
