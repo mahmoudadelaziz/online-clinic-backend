@@ -64,6 +64,14 @@ model Doctor {
   updatedAt      DateTime        @updatedAt
 }
 
+model Moderator {
+  id          Int      @id @default(autoincrement())
+  username    String
+  email       String
+  password    String
+  permissions String[]
+}
+
 model Prescription {
   id            Int         @id @default(autoincrement())
   doctor        Doctor      @relation(fields: [doctorId], references: [id])
