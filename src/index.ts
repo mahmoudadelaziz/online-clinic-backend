@@ -2,15 +2,14 @@ import express, { Express } from "express";
 import dotenv from "dotenv";
 import morgan from "morgan";
 import { errorHandler } from "./utils/errorhandler";
-import { patientRouter, doctorRouter, locationRouter } from "./routers";
+import { userRouter, locationRouter } from "./routers";
 dotenv.config();
 const app: Express = express();
 const port = process.env.PORT;
 
 app.use(express.json());
 app.use(morgan("dev"));
-app.use("/patient", patientRouter);
-app.use("/doctor", doctorRouter);
+app.use("/user", userRouter);
 app.use("/location", locationRouter);
 app.use(errorHandler);
 app.listen(port, () => {

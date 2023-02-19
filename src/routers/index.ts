@@ -1,3 +1,2 @@
-export * from "./doctor.router";
-export * from "./patient.router";
+export * from "./user.router";
 export * from "./location.router";
