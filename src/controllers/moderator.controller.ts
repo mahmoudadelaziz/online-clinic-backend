@@ -1,8 +1,8 @@
 import { NextFunction, Response, Request } from "express";
 import { validationResult } from "express-validator";
-import { PatientService } from "../services/patient.service";
+import { ModeratorService } from "../services/moderator.service";
 
-export namespace PatientController {
+export namespace ModeratorController {
   export const signup = async (
     req: Request,
     res: Response,
@@ -15,14 +15,11 @@ export namespace PatientController {
       next(error);
     }
     try {
-      const { firstName, lastName, email, password, phoneNumber, username } =
-        req.body;
-      const result = await PatientService.create({
-        firstName,
-        lastName,
+      const { email, password, permissions, username } = req.body;
+      const result = await ModeratorService.create({
         email,
         password,
-        phoneNumber,
+        permissions,
         username,
       });
       if (result) {
@@ -49,7 +46,7 @@ export namespace PatientController {
     }
     try {
       const { username, password } = req.body;
-      const token = await PatientService.login({ username, password });
+      const token = await ModeratorService.login({ username, password });
       return res.json({
         message: "User Logged In Successfully",
         token,
@@ -69,7 +66,7 @@ export namespace PatientController {
       return next(new Error("User id must be provided"));
     }
     try {
-      await PatientService.deleteById(id);
+      await ModeratorService.deleteById(id);
       return res.json({ message: "User is deleted successfully" });
     } catch (error) {
       next(error);
@@ -87,7 +84,7 @@ export namespace PatientController {
     }
     try {
       const updateData = req.body;
-      const updatedUser = await PatientService.updateById(id, updateData);
+      const updatedUser = await ModeratorService.updateById(id, updateData);
       return res.json({
         message: "User data is updated successfully",
         data: { username: updatedUser.username, email: updatedUser.email },

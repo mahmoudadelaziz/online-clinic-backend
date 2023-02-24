@@ -1,6 +1,7 @@
 import { Router } from "express";
-import { patientController } from "../controllers/patient.controller";
+import { PatientController } from "../controllers/patient.controller";
 import { DoctorController } from "../controllers/doctor.controller";
+import { ModeratorController } from "../controllers/moderator.controller";
 
 import {
   patientSignupValidators,
@@ -14,25 +15,33 @@ import {
   doctorLoginValidator,
 } from "../validators/doctor";
 
+import {
+  moderatorLoginValidator,
+  moderatorSignupValidator,
+  moderatorUpdateValidator,
+} from "../validators/moderator";
+
 const userRouter = Router();
 
+// patient routes
 userRouter.post(
   "/patient/signup",
   ...patientSignupValidators,
-  patientController.signup
+  PatientController.signup
 );
 userRouter.post(
   "/patient/login",
   ...patientLoginValidator,
-  patientController.login
+  PatientController.login
 );
 userRouter.put(
   "/patient/:id",
   ...patientUpdateValidator,
-  patientController.updateById
+  PatientController.updateById
 );
-userRouter.delete("/patient/:id", patientController.deleteById);
+userRouter.delete("/patient/:id", PatientController.deleteById);
 
+// doctor routes
 userRouter.post(
   "/doctor/signup",
   ...doctorSignupValidator,
@@ -49,5 +58,23 @@ userRouter.put(
   DoctorController.updateById
 );
 userRouter.delete("/doctor/:id", DoctorController.deleteById);
+
+// moderator routes
+userRouter.post(
+  "/moderator/signup",
+  ...moderatorSignupValidator,
+  ModeratorController.signup
+);
+userRouter.post(
+  "/moderator/login",
+  ...moderatorLoginValidator,
+  ModeratorController.login
+);
+userRouter.put(
+  "/moderator/:id",
+  ...moderatorUpdateValidator,
+  ModeratorController.updateById
+);
+userRouter.delete("/moderator/:id", ModeratorController.deleteById);
 
 export { userRouter };
