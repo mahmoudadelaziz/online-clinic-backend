@@ -74,7 +74,7 @@ export namespace ModeratorService {
     data: Partial<ModeratorSignupData>
   ) => {
     try {
-      const updatedUser = await prisma.patient.update({
+      const updatedUser = await prisma.moderator.update({
         where: {
           id: Number(id),
         },

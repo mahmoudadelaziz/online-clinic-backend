@@ -42,6 +42,9 @@ userRouter.put(
 userRouter.delete("/patient/:id", PatientController.deleteById);
 
 // doctor routes
+userRouter.get("/doctor/spec", DoctorController.findBySpecialization);
+userRouter.get("/doctor/name", DoctorController.findByName);
+userRouter.get("/doctor/location", DoctorController.findByLocation);
 userRouter.post(
   "/doctor/signup",
   ...doctorSignupValidator,

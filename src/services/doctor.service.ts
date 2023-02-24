@@ -4,18 +4,22 @@ import { hash, compare } from "bcryptjs";
 
 const prisma = new PrismaClient();
 
+type Doctor = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  phoneNumber: string;
+  username: string;
+  specialization: string;
+  locationId: number;
+};
+type DoctorLogin = {
+  username: string;
+  password: string;
+};
 export namespace DoctorService {
-  type DoctorSignUpData = {
-    firstName: string;
-    lastName: string;
-    email: string;
-    password: string;
-    phoneNumber: string;
-    username: string;
-    specialization: string;
-    locationId: number;
-  };
-  export const create = async (doctor: DoctorSignUpData) => {
+  export const create = async (doctor: Doctor) => {
     try {
       // check if user already exists
       const userExists = !!(await prisma.doctor.findFirst({
@@ -37,11 +41,7 @@ export namespace DoctorService {
     }
   };
 
-  type DoctorLoginData = {
-    username: string;
-    password: string;
-  };
-  export const login = async (doctorData: DoctorLoginData) => {
+  export const login = async (doctorData: DoctorLogin) => {
     try {
       const doctor = await prisma.doctor.findFirst({
         where: {
@@ -76,10 +76,7 @@ export namespace DoctorService {
       throw new Error("UserId is not valid");
     }
   };
-  export const updateById = async (
-    id: string,
-    data: Partial<DoctorSignUpData>
-  ) => {
+  export const updateById = async (id: string, data: Partial<Doctor>) => {
     try {
       const updatedDoctor = await prisma.doctor.update({
         where: {
@@ -90,6 +87,39 @@ export namespace DoctorService {
       return updatedDoctor;
     } catch (error: any) {
       throw new Error("UserId is not valid");
+    }
+  };
+  export const findBySpecialization = async (spec: string) => {
+    try {
+      const doctors = await prisma.doctor.findMany({
+        where: { specialization: spec },
+      });
+      return doctors;
+    } catch (error: any) {
+      throw new Error(error);
+    }
+  };
+  export const findByLocationId = async (locationId: number) => {
+    try {
+      const doctors = await prisma.doctor.findMany({
+        where: { locationId },
+      });
+      return doctors;
+    } catch (error: any) {
+      throw new Error(error);
+    }
+  };
+  export const findByName = async (name: string) => {
+    try {
+      const doctors = await prisma.doctor.findMany({
+        where: {
+          firstName: { contains: name },
+          OR: { lastName: { contains: name } },
+        },
+      });
+      return doctors;
+    } catch (error: any) {
+      throw new Error(error);
     }
   };
 }

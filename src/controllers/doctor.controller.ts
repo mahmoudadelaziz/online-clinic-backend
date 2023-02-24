@@ -103,4 +103,43 @@ export namespace DoctorController {
       next(error);
     }
   };
+  export const findBySpecialization = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const spec = String(req.query.spec);
+      const doctors = await DoctorService.findBySpecialization(spec);
+      return res.json({ doctors });
+    } catch (error: any) {
+      next(new Error(error));
+    }
+  };
+  export const findByLocation = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const locationId = Number(req.query.location);
+      const doctors = await DoctorService.findByLocationId(locationId);
+      return res.json({ doctors });
+    } catch (error: any) {
+      next(new Error(error));
+    }
+  };
+  export const findByName = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const name = String(req.query.name);
+      const doctors = await DoctorService.findByName(name);
+      return res.json({ doctors });
+    } catch (error: any) {
+      next(new Error(error));
+    }
+  };
 }
