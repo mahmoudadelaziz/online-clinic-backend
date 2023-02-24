@@ -1,17 +1,6 @@
 import { Router } from "express";
-import {
-  deletePatientById,
-  patientLogin,
-  patientSignup,
-  updatePatientById,
-} from "../controllers/patient.controller";
-
-import {
-  doctorSignup,
-  doctorLogin,
-  updateDoctorById,
-  deleteDoctorById,
-} from "../controllers/doctor.controller";
+import { patientController } from "../controllers/patient.controller";
+import { DoctorController } from "../controllers/doctor.controller";
 
 import {
   patientSignupValidators,
@@ -27,14 +16,38 @@ import {
 
 const userRouter = Router();
 
-userRouter.post("/patient/signup", ...patientSignupValidators, patientSignup);
-userRouter.post("/patient/login", ...patientLoginValidator, patientLogin);
-userRouter.put("/patient/:id", ...patientUpdateValidator, updatePatientById);
-userRouter.delete("/patient/:id", deletePatientById);
+userRouter.post(
+  "/patient/signup",
+  ...patientSignupValidators,
+  patientController.signup
+);
+userRouter.post(
+  "/patient/login",
+  ...patientLoginValidator,
+  patientController.login
+);
+userRouter.put(
+  "/patient/:id",
+  ...patientUpdateValidator,
+  patientController.updateById
+);
+userRouter.delete("/patient/:id", patientController.deleteById);
 
-userRouter.post("/doctor/signup", ...doctorSignupValidator, doctorSignup);
-userRouter.post("/doctor/login", ...doctorLoginValidator, doctorLogin);
-userRouter.put("/doctor/:id", ...doctorUpdateValidator, updateDoctorById);
-userRouter.delete("/doctor/:id", deleteDoctorById);
+userRouter.post(
+  "/doctor/signup",
+  ...doctorSignupValidator,
+  DoctorController.signup
+);
+userRouter.post(
+  "/doctor/login",
+  ...doctorLoginValidator,
+  DoctorController.login
+);
+userRouter.put(
+  "/doctor/:id",
+  ...doctorUpdateValidator,
+  DoctorController.updateById
+);
+userRouter.delete("/doctor/:id", DoctorController.deleteById);
 
 export { userRouter };
