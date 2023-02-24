@@ -12,5 +12,5 @@ export const moderatorSignupValidator = [
     .withMessage("Must be no more than 12 characters long."),
   body("email").isEmail().normalizeEmail(),
   body("password").isString().isLength({ max: 16, min: 4 }),
-  body("permissions").isArray({ min: 1 }).isString(),
+  body("permissions").isArray({ min: 1 }),
 ];
