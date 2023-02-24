@@ -15,7 +15,7 @@ export namespace DoctorService {
     specialization: string;
     locationId: number;
   };
-  export const createDoctor = async (doctor: DoctorSignUpData) => {
+  export const create = async (doctor: DoctorSignUpData) => {
     try {
       // check if user already exists
       const userExists = !!(await prisma.doctor.findFirst({
@@ -41,7 +41,7 @@ export namespace DoctorService {
     username: string;
     password: string;
   };
-  export const loginDoctor = async (doctorData: DoctorLoginData) => {
+  export const login = async (doctorData: DoctorLoginData) => {
     try {
       const doctor = await prisma.doctor.findFirst({
         where: {
@@ -65,7 +65,7 @@ export namespace DoctorService {
     }
   };
 
-  export const deleteDoctorById = async (id: string) => {
+  export const deleteById = async (id: string) => {
     try {
       await prisma.doctor.delete({
         where: {
@@ -76,7 +76,7 @@ export namespace DoctorService {
       throw new Error("UserId is not valid");
     }
   };
-  export const updateDoctorById = async (
+  export const updateById = async (
     id: string,
     data: Partial<DoctorSignUpData>
   ) => {

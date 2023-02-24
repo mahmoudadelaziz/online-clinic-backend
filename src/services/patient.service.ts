@@ -13,7 +13,7 @@ export namespace PatientService {
     phoneNumber: string;
     username: string;
   };
-  export const createPatient = async (user: PatientSignUpData) => {
+  export const create = async (user: PatientSignUpData) => {
     try {
       // check if user already exists
       const userExists = !!(await prisma.patient.findFirst({
@@ -21,7 +21,6 @@ export namespace PatientService {
           email: user.email,
         },
       }));
-      console.log(userExists);
       if (userExists) {
         throw new Error("A user with this email already exists");
       }
@@ -40,7 +39,7 @@ export namespace PatientService {
     username: string;
     password: string;
   };
-  export const loginPatient = async (userData: PatientLoginData) => {
+  export const login = async (userData: PatientLoginData) => {
     try {
       const user = await prisma.patient.findFirst({
         where: {
@@ -61,7 +60,7 @@ export namespace PatientService {
     }
   };
 
-  export const deletePatientById = async (id: string) => {
+  export const deleteById = async (id: string) => {
     try {
       await prisma.patient.delete({
         where: {
@@ -72,7 +71,7 @@ export namespace PatientService {
       throw new Error("UserId is not valid");
     }
   };
-  export const updatePatientById = async (
+  export const updateById = async (
     id: string,
     data: Partial<PatientSignUpData>
   ) => {

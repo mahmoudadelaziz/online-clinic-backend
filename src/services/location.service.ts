@@ -9,7 +9,7 @@ type Location = {
   lng: number;
 };
 export namespace LocationService {
-  export const createLocation = async (location: Location) => {
+  export const create = async (location: Location) => {
     try {
       const newLocation = await prisma.location.create({
         data: location,
@@ -19,7 +19,7 @@ export namespace LocationService {
       throw error;
     }
   };
-  export const getAllLocations = async () => {
+  export const getAll = async () => {
     try {
       const locations = await prisma.location.findMany();
       return locations;
@@ -27,7 +27,7 @@ export namespace LocationService {
       throw error;
     }
   };
-  export const getLocationById = async (id: string) => {
+  export const getById = async (id: string) => {
     try {
       const location = await prisma.location.findFirst({
         where: { id: Number(id) },
@@ -37,7 +37,7 @@ export namespace LocationService {
       throw error;
     }
   };
-  export const updateLocationById = async (
+  export const updateById = async (
     id: string,
     updateData: Partial<Location>
   ) => {
@@ -51,7 +51,7 @@ export namespace LocationService {
       throw error;
     }
   };
-  export const deleteLocationById = async (id: string) => {
+  export const deleteById = async (id: string) => {
     try {
       const location = await prisma.location.delete({
         where: { id: Number(id) },
