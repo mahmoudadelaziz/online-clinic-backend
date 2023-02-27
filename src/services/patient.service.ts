@@ -1,19 +1,11 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, Patient } from "@prisma/client";
 import jwt from "jsonwebtoken";
 import { hash, compare } from "bcryptjs";
 
 const prisma = new PrismaClient();
 
 export namespace PatientService {
-  type PatientSignUpData = {
-    firstName: string;
-    lastName: string;
-    email: string;
-    password: string;
-    phoneNumber: string;
-    username: string;
-  };
-  export const create = async (user: PatientSignUpData) => {
+  export const create = async (user: Patient) => {
     try {
       // check if user already exists
       const userExists = !!(await prisma.patient.findFirst({
@@ -35,10 +27,7 @@ export namespace PatientService {
     }
   };
 
-  type PatientLoginData = {
-    username: string;
-    password: string;
-  };
+  type PatientLoginData = Pick<Patient, "username" | "password">;
   export const login = async (userData: PatientLoginData) => {
     try {
       const user = await prisma.patient.findFirst({
@@ -71,10 +60,7 @@ export namespace PatientService {
       throw new Error("UserId is not valid");
     }
   };
-  export const updateById = async (
-    id: string,
-    data: Partial<PatientSignUpData>
-  ) => {
+  export const updateById = async (id: string, data: Partial<Patient>) => {
     try {
       const updatedUser = await prisma.patient.update({
         where: {

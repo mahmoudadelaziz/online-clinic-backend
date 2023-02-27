@@ -1,7 +1,7 @@
 import { body } from "express-validator";
 
 export const updateValidator = [
-  body(["street", "city", "province"])
+  body(["street", "city", "governorate"])
     .isString()
     .trim()
     .toLowerCase()

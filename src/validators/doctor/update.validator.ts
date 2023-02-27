@@ -15,4 +15,8 @@ export const doctorUpdateValidator = [
   body("password").isString().isLength({ max: 16, min: 4 }).optional(),
   body("phoneNumber").isMobilePhone("ar-EG").optional(),
   body("specialization").isString().optional(),
+  body("subSpecialization").isString().optional(),
+  body("price1").isFloat().optional().optional(),
+  body("price2").isFloat().optional().optional(),
+  body("locationId").isString().notEmpty().optional(),
 ];

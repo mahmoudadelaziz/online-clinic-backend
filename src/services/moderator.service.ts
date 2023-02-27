@@ -1,17 +1,11 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, Moderator } from "@prisma/client";
 import jwt from "jsonwebtoken";
 import { hash, compare } from "bcryptjs";
 
 const prisma = new PrismaClient();
 
 export namespace ModeratorService {
-  type ModeratorSignupData = {
-    email: string;
-    password: string;
-    username: string;
-    permissions: string[];
-  };
-  export const create = async (user: ModeratorSignupData) => {
+  export const create = async (user: Moderator) => {
     try {
       // check if user already exists
       const userExists = !!(await prisma.moderator.findFirst({
@@ -33,11 +27,8 @@ export namespace ModeratorService {
     }
   };
 
-  type ModeratorLoginData = {
-    username: string;
-    password: string;
-  };
-  export const login = async (userData: ModeratorLoginData) => {
+  type ModeratorLogin = Pick<Moderator, "username" | "password">;
+  export const login = async (userData: ModeratorLogin) => {
     try {
       const user = await prisma.moderator.findFirst({
         where: {
@@ -69,10 +60,7 @@ export namespace ModeratorService {
       throw new Error("UserId is not valid");
     }
   };
-  export const updateById = async (
-    id: string,
-    data: Partial<ModeratorSignupData>
-  ) => {
+  export const updateById = async (id: string, data: Partial<Moderator>) => {
     try {
       const updatedUser = await prisma.moderator.update({
         where: {

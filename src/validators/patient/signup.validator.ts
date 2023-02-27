@@ -1,7 +1,8 @@
 import { body } from "express-validator";
+import { Patient } from "@prisma/client";
 
 export const patientSignupValidators = [
-  body(["firstName", "lastName", "username"])
+  body(["name", "username"])
     .isString()
     .trim()
     .toLowerCase()

@@ -1,7 +1,7 @@
 import { body } from "express-validator";
 
 export const doctorSignupValidator = [
-  body(["firstName", "lastName", "username"])
+  body(["name", "username"])
     .isString()
     .trim()
     .toLowerCase()
@@ -14,4 +14,8 @@ export const doctorSignupValidator = [
   body("password").isString().isLength({ max: 16, min: 4 }),
   body("phoneNumber").isMobilePhone("ar-EG"),
   body("specialization").isString(),
+  body("subSpecialization").isString(),
+  body("price1").isFloat().optional(),
+  body("price2").isFloat().optional(),
+  body("locationId").isString().notEmpty(),
 ];

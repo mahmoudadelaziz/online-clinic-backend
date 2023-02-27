@@ -1,13 +1,7 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, Location } from "@prisma/client";
 
 const prisma = new PrismaClient();
-type Location = {
-  street: string;
-  city: string;
-  province: string;
-  lat: number;
-  lng: number;
-};
+
 export namespace LocationService {
   export const create = async (location: Location) => {
     try {

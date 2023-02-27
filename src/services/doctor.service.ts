@@ -1,23 +1,10 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, Doctor } from "@prisma/client";
 import jwt from "jsonwebtoken";
 import { hash, compare } from "bcryptjs";
 
 const prisma = new PrismaClient();
 
-type Doctor = {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-  phoneNumber: string;
-  username: string;
-  specialization: string;
-  locationId: number;
-};
-type DoctorLogin = {
-  username: string;
-  password: string;
-};
+type DoctorLogin = Pick<Doctor, "username" | "password">;
 export namespace DoctorService {
   export const create = async (doctor: Doctor) => {
     try {
@@ -113,8 +100,7 @@ export namespace DoctorService {
     try {
       const doctors = await prisma.doctor.findMany({
         where: {
-          firstName: { contains: name },
-          OR: { lastName: { contains: name } },
+          name: { contains: name },
         },
       });
       return doctors;

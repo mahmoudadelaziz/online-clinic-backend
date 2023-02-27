@@ -3,6 +3,8 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 type Appointment = {
+  patientId: number;
+  prescriptionId: number;
   doctorId: number;
   type: string;
 };
