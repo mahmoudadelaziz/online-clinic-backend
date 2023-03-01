@@ -7,19 +7,19 @@ import {
   patientSignupValidators,
   patientLoginValidator,
   patientUpdateValidator,
-} from "../validators/patient";
+} from "../validators/patient.validator";
 
 import {
   doctorSignupValidator,
   doctorUpdateValidator,
   doctorLoginValidator,
-} from "../validators/doctor";
+} from "../validators/doctor.validator";
 
 import {
   moderatorLoginValidator,
   moderatorSignupValidator,
   moderatorUpdateValidator,
-} from "../validators/moderator";
+} from "../validators/moderator.validator";
 
 const userRouter = Router();
 

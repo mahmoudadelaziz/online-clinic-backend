@@ -1,6 +1,9 @@
 import { Router } from "express";
 import { LocationController } from "../controllers/location.controller";
-import { createValidator, updateValidator } from "../validators/location";
+import {
+  createValidator,
+  updateValidator,
+} from "../validators/location.validator";
 const locationRouter = Router();
 
 locationRouter.get("/", LocationController.getAll);
