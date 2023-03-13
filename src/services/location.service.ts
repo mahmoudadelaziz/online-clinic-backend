@@ -3,7 +3,7 @@ import { PrismaClient, Location } from "@prisma/client";
 const prisma = new PrismaClient();
 
 export namespace LocationService {
-  export const create = async (location: Location) => {
+  export const create = async (location: Omit<Location, "id">) => {
     try {
       const newLocation = await prisma.location.create({
         data: location,

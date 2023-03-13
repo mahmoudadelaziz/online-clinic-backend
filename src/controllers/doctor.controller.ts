@@ -16,9 +16,11 @@ export namespace DoctorController {
     }
     try {
       const {
-        firstName,
-        lastName,
+        name,
         email,
+        subSpecialization,
+        price1 = "",
+        price2 = "",
         password,
         phoneNumber,
         username,
@@ -26,13 +28,15 @@ export namespace DoctorController {
         locationId,
       } = req.body;
       const result = await DoctorService.create({
-        firstName,
-        lastName,
+        name,
         email,
         password,
         phoneNumber,
         username,
         specialization,
+        subSpecialization,
+        price1,
+        price2,
         locationId,
       });
       if (result) {

@@ -11,7 +11,7 @@ datasource db {
 }
 
 model Patient {
-  id           String          @id @default(uuid())
+  id           Int             @id @default(autoincrement())
   name         String
   username     String
   password     String
@@ -24,11 +24,11 @@ model Patient {
 }
 
 model PatientReview {
-  id             String   @id @default(uuid())
+  id             Int      @id @default(autoincrement())
   reviewedDoctor Doctor   @relation(fields: [doctorId], references: [id])
-  doctorId       String
+  doctorId       Int
   reviewWriter   Patient  @relation(fields: [patientId], references: [id])
-  patientId      String
+  patientId      Int
   review         String
   rating         Int
   createdAt      DateTime @default(now())
@@ -36,7 +36,7 @@ model PatientReview {
 }
 
 model Location {
-  id          String   @id @default(uuid())
+  id          Int      @id @default(autoincrement())
   doctor      Doctor?
   street      String
   city        String
@@ -46,7 +46,7 @@ model Location {
 }
 
 model Doctor {
-  id                String          @id @default(uuid())
+  id                Int             @id @default(autoincrement())
   name              String
   username          String
   password          String
@@ -59,13 +59,13 @@ model Doctor {
   appointments      Appointment[]
   reviews           PatientReview[]
   location          Location        @relation(fields: [locationId], references: [id])
-  locationId        String          @unique
+  locationId        Int             @unique
   createdAt         DateTime        @default(now())
   updatedAt         DateTime        @updatedAt
 }
 
 model Moderator {
-  id          String   @id @default(uuid())
+  id          Int      @id @default(autoincrement())
   username    String
   email       String
   password    String
@@ -73,7 +73,7 @@ model Moderator {
 }
 
 model Prescription {
-  id          String       @id @default(uuid())
+  id          Int          @id @default(autoincrement())
   appointment Appointment?
   prognosis   String
   dosage      String
@@ -82,14 +82,14 @@ model Prescription {
 }
 
 model Appointment {
-  id             String        @id @default(uuid())
+  id             Int           @id @default(autoincrement())
   doctor         Doctor        @relation(fields: [doctorId], references: [id])
   patient        Patient       @relation(fields: [patientId], references: [id])
-  patientId      String
-  doctorId       String
+  patientId      Int
+  doctorId       Int
   type           String
   at             DateTime      @default(now())
   updatedAt      DateTime      @updatedAt
   appointment    Prescription? @relation(fields: [prescriptionId], references: [id])
-  prescriptionId String?       @unique
+  prescriptionId Int?          @unique
 }

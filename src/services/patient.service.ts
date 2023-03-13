@@ -5,7 +5,9 @@ import { hash, compare } from "bcryptjs";
 const prisma = new PrismaClient();
 
 export namespace PatientService {
-  export const create = async (user: Patient) => {
+  export const create = async (
+    user: Omit<Patient, "id" | "createdAt" | "updatedAt">
+  ) => {
     try {
       // check if user already exists
       const userExists = !!(await prisma.patient.findFirst({

@@ -1,15 +1,11 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, Appointment } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-type Appointment = {
-  patientId: number;
-  prescriptionId: number;
-  doctorId: number;
-  type: string;
-};
 export namespace AppointmentService {
-  export const create = async (appointment: Appointment) => {
+  export const create = async (
+    appointment: Omit<Appointment, "id" | "updatedAt">
+  ) => {
     try {
       const newAppointment = await prisma.appointment.create({
         data: appointment,

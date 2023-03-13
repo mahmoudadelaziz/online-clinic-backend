@@ -6,7 +6,9 @@ const prisma = new PrismaClient();
 
 type DoctorLogin = Pick<Doctor, "username" | "password">;
 export namespace DoctorService {
-  export const create = async (doctor: Doctor) => {
+  export const create = async (
+    doctor: Omit<Doctor, "id" | "createdAt" | "updatedAt">
+  ) => {
     try {
       // check if user already exists
       const userExists = !!(await prisma.doctor.findFirst({

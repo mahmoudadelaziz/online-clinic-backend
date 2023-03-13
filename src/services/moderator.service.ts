@@ -5,7 +5,7 @@ import { hash, compare } from "bcryptjs";
 const prisma = new PrismaClient();
 
 export namespace ModeratorService {
-  export const create = async (user: Moderator) => {
+  export const create = async (user: Omit<Moderator, "id">) => {
     try {
       // check if user already exists
       const userExists = !!(await prisma.moderator.findFirst({

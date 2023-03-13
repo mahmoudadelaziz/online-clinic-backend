@@ -1,7 +1,7 @@
 import { NextFunction, Response, Request } from "express";
 import { validationResult } from "express-validator";
 import { PatientService } from "../services/patient.service";
-
+import { v4 as uuidv4 } from "uuid";
 export namespace PatientController {
   export const signup = async (
     req: Request,
@@ -15,11 +15,9 @@ export namespace PatientController {
       next(error);
     }
     try {
-      const { firstName, lastName, email, password, phoneNumber, username } =
-        req.body;
+      const { name, email, password, phoneNumber, username } = req.body;
       const result = await PatientService.create({
-        firstName,
-        lastName,
+        name,
         email,
         password,
         phoneNumber,

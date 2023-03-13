@@ -10,7 +10,7 @@ export namespace AppointmentController {
   ) => {
     try {
       const errors = validationResult(req);
-      const { doctorId, type } = req.body;
+      const { doctorId, type, prescriptionId, patientId, at } = req.body;
       if (!errors.isEmpty()) {
         const error = new Error("Bad Request");
         error.name = "Validation Error";
@@ -19,6 +19,9 @@ export namespace AppointmentController {
       const newAppointment = await AppointmentService.create({
         doctorId,
         type,
+        prescriptionId,
+        patientId,
+        at,
       });
       return res.json({ newAppointment });
     } catch (error: any) {
