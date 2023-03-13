@@ -42,14 +42,12 @@ export namespace LocationController {
         error.message = "Cannot create location, the provided data is invalid";
         throw error;
       }
-      const { street, city, province, lat, lng, governorate } = req.body;
+      const { street, city, coordinates, governorate } = req.body;
       const locationData = {
         street,
         city,
-        province,
         governorate,
-        lat,
-        lng,
+        coordinates,
       };
       const newLocation = await LocationService.create(locationData);
       return res.json({ newLocation });
@@ -73,8 +71,6 @@ export namespace LocationController {
       }
       const id = req.params.id;
       const updateData = req.body;
-      if ("lat" in updateData) updateData.lat = Number(updateData.lat);
-      if ("lng" in updateData) updateData.lng = Number(updateData.lng);
       const updatedLocation = await LocationService.updateById(id, updateData);
       return res.json({ updatedLocation });
     } catch (error) {

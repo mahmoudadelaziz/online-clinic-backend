@@ -12,15 +12,15 @@ export namespace DoctorController {
     if (!errors.isEmpty()) {
       const error = new Error("Bad Request");
       error.name = "Validation Error";
-      next(error);
+      return next(error);
     }
     try {
       const {
         name,
         email,
         subSpecialization,
-        price1 = "",
-        price2 = "",
+        price1 = null,
+        price2 = null,
         password,
         phoneNumber,
         username,

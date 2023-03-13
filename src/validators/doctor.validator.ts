@@ -30,7 +30,7 @@ export const doctorSignupValidator = [
   body("subSpecialization").isString(),
   body("price1").isFloat().optional(),
   body("price2").isFloat().optional(),
-  body("locationId").isString().notEmpty(),
+  body("locationId").isNumeric().notEmpty(),
 ];
 export const doctorUpdateValidator = [
   body(["firstName", "lastName", "username"])

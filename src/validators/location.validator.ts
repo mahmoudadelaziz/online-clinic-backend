@@ -10,7 +10,7 @@ export const createValidator = [
     .withMessage("Must be atleast 3 characters long")
     .isLength({ max: 12 })
     .withMessage("Must be no more than 12 characters long."),
-  body(["lat", "lng"]).isLatLong(),
+  body("coordinates").isLatLong(),
 ];
 
 export const updateValidator = [
@@ -24,5 +24,5 @@ export const updateValidator = [
     .isLength({ max: 12 })
     .withMessage("Must be no more than 12 characters long.")
     .optional(),
-  body(["lat", "lng"]).isLatLong().optional(),
+  body("coordinates").isLatLong().optional(),
 ];

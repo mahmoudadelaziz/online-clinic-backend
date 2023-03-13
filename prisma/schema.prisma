@@ -36,13 +36,12 @@ model PatientReview {
 }
 
 model Location {
-  id          Int      @id @default(autoincrement())
+  id          Int     @id @default(autoincrement())
   doctor      Doctor?
   street      String
   city        String
   governorate String
-  lat         Decimal?
-  lng         Decimal?
+  coordinates String
 }
 
 model Doctor {
