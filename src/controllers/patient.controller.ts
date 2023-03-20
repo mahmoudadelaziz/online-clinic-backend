@@ -1,20 +1,19 @@
 import { NextFunction, Response, Request } from "express";
 import { validationResult } from "express-validator";
 import { PatientService } from "../services/patient.service";
-import { v4 as uuidv4 } from "uuid";
 export namespace PatientController {
   export const signup = async (
     req: Request,
     res: Response,
     next: NextFunction
   ) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      const error = new Error("Bad Request");
-      error.name = "Validation Error";
-      next(error);
-    }
     try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        const error = new Error("Bad Request");
+        error.name = "Validation Error";
+        throw error;
+      }
       const { name, email, password, phoneNumber, username } = req.body;
       const result = await PatientService.create({
         name,
@@ -24,6 +23,10 @@ export namespace PatientController {
         username,
       });
       if (result) {
+        res.cookie("jwt", result.token, {
+          httpOnly: true,
+          maxAge: 12 * 60 * 60 * 1000,
+        });
         return res.json({
           message: "User Signed Up Successfully",
           user: { username: result.username, token: result.token },
