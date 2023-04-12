@@ -17,6 +17,8 @@ export namespace ReviewController {
       }
       const { review, rating, doctorId, patientId } = req.body;
       await ReviewService.create({ review, rating, doctorId, patientId });
-    } catch (error) {}
+    } catch (error) {
+      next(error);
+    }
   };
 }

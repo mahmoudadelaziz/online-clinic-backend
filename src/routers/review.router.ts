@@ -1,8 +1,8 @@
 import { Router } from "express";
 import { createReviewValidator } from "../validators/review.validator";
-import { ReviewService } from "../services/review.service";
+import { ReviewController } from "../controllers/review.controller";
 const reviewRouter = Router();
 
-reviewRouter.post("/", ...createReviewValidator, ReviewService.create);
+reviewRouter.post("/", ...createReviewValidator, ReviewController.create);
 
 export { reviewRouter };
