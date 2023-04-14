@@ -16,7 +16,25 @@ export namespace ReviewController {
         next(error);
       }
       const { review, rating, doctorId, patientId } = req.body;
-      await ReviewService.create({ review, rating, doctorId, patientId });
+      const newReview = await ReviewService.create({
+        review,
+        rating,
+        doctorId,
+        patientId,
+      });
+      return res.json({ newReview });
+    } catch (error) {
+      next(error);
+    }
+  };
+  export const findAll = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const reviews = await ReviewService.findAll();
+      return res.json({ reviews });
     } catch (error) {
       next(error);
     }

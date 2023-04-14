@@ -11,4 +11,12 @@ export namespace ReviewService {
       throw error;
     }
   };
+  export const findAll = async () => {
+    try {
+      const reviews = await prisma.patientReview.findMany();
+      return reviews;
+    } catch (error) {
+      throw error;
+    }
+  };
 }
