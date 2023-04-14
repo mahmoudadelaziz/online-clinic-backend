@@ -36,12 +36,12 @@ model PatientReview {
 }
 
 model Location {
-  id          Int     @id @default(autoincrement())
-  doctor      Doctor?
+  id          Int      @id @default(autoincrement())
   street      String
   city        String
   governorate String
   coordinates String
+  Doctor      Doctor[]
 }
 
 model Doctor {
@@ -57,8 +57,8 @@ model Doctor {
   price2            Float?
   appointments      Appointment[]
   reviews           PatientReview[]
-  location          Location        @relation(fields: [locationId], references: [id])
-  locationId        Int             @unique
+  location          Location?       @relation(fields: [locationId], references: [id])
+  locationId        Int?
   createdAt         DateTime        @default(now())
   updatedAt         DateTime        @updatedAt
 }
