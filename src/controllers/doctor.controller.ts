@@ -146,4 +146,28 @@ export namespace DoctorController {
       next(new Error(error));
     }
   };
+  export const findAll = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const doctors = await DoctorService.findAll();
+      return res.json({ doctors });
+    } catch (error: any) {
+      next(new Error(error));
+    }
+  };
+  export const getCardInfo = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const doctors = await DoctorService.getCardInfo();
+      return res.json({ doctors });
+    } catch (error: any) {
+      next(new Error(error));
+    }
+  };
 }

@@ -110,4 +110,27 @@ export namespace DoctorService {
       throw new Error(error);
     }
   };
+  export const findAll = async () => {
+    try {
+      const doctors = await prisma.doctor.findMany();
+      return doctors;
+    } catch (error: any) {
+      throw new Error(error);
+    }
+  };
+  export const getCardInfo = async () => {
+    try {
+      const doctors = await prisma.doctor.findMany({
+        select: {
+          name: true,
+          specialization: true,
+          subSpecialization: true,
+          reviews: { select: { rating: true } },
+        },
+      });
+      return doctors;
+    } catch (error: any) {
+      throw new Error(error);
+    }
+  };
 }
