@@ -7,6 +7,7 @@ export namespace ReviewService {
   ) => {
     try {
       await prisma.patientReview.create({ data: review });
+      return review;
     } catch (error) {
       throw error;
     }

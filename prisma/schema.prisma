@@ -89,6 +89,6 @@ model Appointment {
   type           String
   at             DateTime      @default(now())
   updatedAt      DateTime      @updatedAt
-  appointment    Prescription? @relation(fields: [prescriptionId], references: [id])
+  prescription   Prescription? @relation(fields: [prescriptionId], references: [id])
   prescriptionId Int?          @unique
 }

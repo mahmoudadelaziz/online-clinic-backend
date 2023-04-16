@@ -122,13 +122,28 @@ export namespace DoctorService {
     try {
       const doctors = await prisma.doctor.findMany({
         select: {
+          id: true,
           name: true,
           specialization: true,
           subSpecialization: true,
-          reviews: { select: { rating: true } },
         },
       });
-      return doctors;
+      const doctorsWithReviews = await Promise.all(
+        // get reviews for each doctor
+        doctors.map(async (doctor) => {
+          const reviews = await prisma.patientReview.findMany({
+            where: { doctorId: doctor.id },
+            select: {
+              rating: true,
+            },
+          });
+          return {
+            ...doctor,
+            reviews,
+          };
+        })
+      );
+      return doctorsWithReviews;
     } catch (error: any) {
       throw new Error(error);
     }
