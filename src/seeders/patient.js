@@ -3,7 +3,7 @@ const { PrismaClient } = require("@prisma/client");
 
 const prisma = new PrismaClient();
 
-function seedFakePatients() {
+async function seedFakePatients() {
   let patients = [];
   for (let i = 0; i < 100; i++) {
     // generate random data for each field
@@ -27,9 +27,12 @@ function seedFakePatients() {
     // push the doctor object to the doctors array
     patients.push(doctor);
   }
-  prisma.patient.createMany({ data: patients }).then(() => {
-    console.log("done");
+  try {
+    const res = await prisma.patient.createMany({ data: patients });
+    console.log(`Inserted ${res.count} patient records in databse`);
     prisma.$disconnect();
-  });
+  } catch (error) {
+    console.log(error);
+  }
 }
 module.exports = { seedFakePatients };

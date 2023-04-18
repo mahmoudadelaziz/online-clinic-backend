@@ -11,7 +11,7 @@ import {
 } from "./routers";
 dotenv.config();
 const app: Express = express();
-const port = process.env.PORT;
+const port = process.env.PORT ?? 5000;
 
 app.use(cors());
 app.use(express.json());

@@ -3,7 +3,10 @@ const { seedFakeLocations } = require("./location");
 const { seedFakeReviews } = require("./review");
 const { seedFakePatients } = require("./patient");
 
-seedFakePatients();
-seedFakeLocations();
-seedFakeDoctors();
-seedFakeReviews();
+async function main() {
+  await seedFakeLocations();
+  await seedFakeDoctors();
+  await seedFakePatients();
+  await seedFakeReviews();
+}
+main();

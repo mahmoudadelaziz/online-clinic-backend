@@ -2,7 +2,7 @@ const { faker } = require("@faker-js/faker");
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
-function seedFakeReviews() {
+async function seedFakeReviews() {
   let reviews = [];
   const docIdSet = new Set();
   for (let i = 0; i < 100; i++) {
@@ -24,10 +24,8 @@ function seedFakeReviews() {
     // push the doctor object to the doctors array
     reviews.push(resultReview);
   }
-  prisma.patientReview.createMany({ data: reviews }).then(() => {
-    console.log("done");
-    prisma.$disconnect();
-  });
+  const res = await prisma.patientReview.createMany({ data: reviews });
+  console.log(`Inserted ${res.count} fake reviews in database`);
 }
 
 module.exports = { seedFakeReviews };

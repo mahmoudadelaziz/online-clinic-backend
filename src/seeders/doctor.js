@@ -2,7 +2,7 @@ const { faker } = require("@faker-js/faker");
 
 const { PrismaClient } = require("@prisma/client");
 // create an array for the doctors
-function seedFakeDoctors() {
+async function seedFakeDoctors() {
   const doctors = [];
   const medicalSpecializations = [
     "Cardiology",
@@ -58,17 +58,12 @@ function seedFakeDoctors() {
 
   // insert into the database
   const prisma = new PrismaClient();
-  prisma.doctor
-    .createMany({ data: doctors })
-    .then((res) => {
-      console.log(res.count);
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-    .finally(() => {
-      prisma.$disconnect();
-      console.log("Inserted 100 doctor in Database");
-    });
+  try {
+    const res = await prisma.doctor.createMany({ data: doctors });
+    console.log(`Inserted ${res.count} doctor in Database`);
+    prisma.$disconnect();
+  } catch (error) {
+    console.log(error);
+  }
 }
 module.exports = { seedFakeDoctors };
