@@ -118,9 +118,19 @@ export namespace DoctorService {
       throw new Error(error);
     }
   };
-  export const getCardInfo = async () => {
+
+  interface GetCardInfoOptions {
+    page: number;
+    pageSize: number;
+  }
+  export const getCardInfo = async ({
+    page,
+    pageSize = 10,
+  }: GetCardInfoOptions) => {
     try {
       const doctors = await prisma.doctor.findMany({
+        take: pageSize,
+        skip: (page - 1) * pageSize,
         select: {
           id: true,
           name: true,
@@ -128,6 +138,8 @@ export namespace DoctorService {
           subSpecialization: true,
         },
       });
+
+      const totalCount = await prisma.doctor.count();
       const doctorsWithReviews = await Promise.all(
         // get reviews for each doctor
         doctors.map(async (doctor) => {
@@ -137,13 +149,22 @@ export namespace DoctorService {
               rating: true,
             },
           });
+          const totalRating = reviews.length
+            ? reviews.reduce((acc, curr) => acc + curr.rating, 0)
+            : 0;
+          const avgRating = totalRating / reviews.length;
+          const numberOfReviews = reviews.length;
           return {
             ...doctor,
-            reviews,
+            avgRating,
+            numberOfReviews,
           };
         })
       );
-      return doctorsWithReviews;
+      return {
+        numberOfPages: Math.ceil(totalCount / pageSize),
+        data: doctorsWithReviews,
+      };
     } catch (error: any) {
       throw new Error(error);
     }

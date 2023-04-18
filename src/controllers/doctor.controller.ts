@@ -164,8 +164,11 @@ export namespace DoctorController {
     next: NextFunction
   ) => {
     try {
-      const doctors = await DoctorService.getCardInfo();
-      return res.json({ doctors });
+      const pageSize = req.query.pageSize ? Number(req.query.pageSize) : 10;
+      const page = req.query.page ? Number(req.query.page) : 0;
+
+      const result = await DoctorService.getCardInfo({ pageSize, page });
+      return res.json(result);
     } catch (error: any) {
       next(new Error(error));
     }
