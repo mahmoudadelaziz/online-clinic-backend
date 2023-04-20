@@ -166,8 +166,16 @@ export namespace DoctorController {
     try {
       const pageSize = req.query.pageSize ? Number(req.query.pageSize) : 10;
       const page = req.query.page ? Number(req.query.page) : 0;
-
-      const result = await DoctorService.getCardInfo({ pageSize, page });
+      const governorate = req.query.governorate
+        ? String(req.query.governorate)
+        : null;
+      const spec = req.query.spec ? String(req.query.spec) : null;
+      const result = await DoctorService.getCardInfo({
+        pageSize,
+        page,
+        governorate,
+        spec,
+      });
       return res.json(result);
     } catch (error: any) {
       next(new Error(error));

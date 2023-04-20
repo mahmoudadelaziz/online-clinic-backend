@@ -122,14 +122,30 @@ export namespace DoctorService {
   interface GetCardInfoOptions {
     page: number;
     pageSize: number;
+    governorate: string | null;
+    spec: string | null;
+  }
+  interface queryFilter {
+    location?: { governorate: { contains: string } };
+    specialization?: { contains: string };
   }
   export const getCardInfo = async ({
     page,
     pageSize = 10,
+    governorate,
+    spec,
   }: GetCardInfoOptions) => {
     try {
+      const filter: queryFilter = {};
+      if (governorate) {
+        filter.location = { governorate: { contains: governorate } };
+      }
+      if (spec) {
+        filter.specialization = { contains: spec };
+      }
       const fetchedDoctors = await prisma.doctor.findMany({
         take: pageSize,
+        where: filter,
         skip: (page - 1) * pageSize,
         select: {
           id: true,

@@ -23,18 +23,19 @@ async function seedFakeDoctors() {
   ];
   for (let i = 0; i < 100; i++) {
     // generate random data for each field
-    const name = faker.name.fullName();
+    const name = faker.name.fullName().trim().toLowerCase();
     const password = faker.internet.password(10);
-    const username = name.replace(/\W/g, "").toLowerCase();
-    const email = faker.internet.email();
+    const username = name.replace(/\W/g, "").toLowerCase().trim();
+    const email = faker.internet.email().trim().toLowerCase();
     const phoneNumber = String(faker.phone.number("+20-10-####-####")).replace(
       /-/g,
       ""
     );
-    const specialization =
-      medicalSpecializations[
-        Math.floor(Math.random() * medicalSpecializations.length)
-      ];
+    const specialization = medicalSpecializations[
+      Math.floor(Math.random() * medicalSpecializations.length)
+    ]
+      .trim()
+      .toLowerCase();
     const subSpecialization = specialization;
     const price1 = faker.datatype.number({ min: 100, max: 500 });
     const locationId = faker.datatype.number({ min: 1, max: 40 });
