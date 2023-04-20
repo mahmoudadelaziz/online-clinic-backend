@@ -170,11 +170,13 @@ export namespace DoctorController {
         ? String(req.query.governorate)
         : null;
       const spec = req.query.spec ? String(req.query.spec) : null;
+      const search = req.query.search ? String(req.query.search) : null;
       const result = await DoctorService.getCardInfo({
         pageSize,
         page,
         governorate,
         spec,
+        search,
       });
       return res.json(result);
     } catch (error: any) {
