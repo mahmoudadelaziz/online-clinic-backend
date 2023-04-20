@@ -7,7 +7,7 @@ async function seedFakeReviews() {
   const docIdSet = new Set();
   for (let i = 0; i < 100; i++) {
     // generate random data for each field
-    let doctorId = Math.floor(Math.random() * 100) + 101;
+    let doctorId = Math.floor(Math.random() * 100) + 1;
     while (docIdSet.has(doctorId)) {
       doctorId = Math.floor(Math.random() * 100) + 1;
     }
