@@ -51,6 +51,7 @@ model Doctor {
   password          String
   email             String
   phoneNumber       String
+  about             String?
   specialization    String
   subSpecialization String
   price1            Float?

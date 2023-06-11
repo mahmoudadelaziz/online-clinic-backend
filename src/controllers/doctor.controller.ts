@@ -26,6 +26,7 @@ export namespace DoctorController {
         username,
         specialization,
         locationId,
+        about,
       } = req.body;
       const result = await DoctorService.create({
         name,
@@ -38,6 +39,7 @@ export namespace DoctorController {
         price1,
         price2,
         locationId,
+        about,
       });
       if (result) {
         return res.json({
