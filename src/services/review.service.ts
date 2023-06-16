@@ -20,4 +20,14 @@ export namespace ReviewService {
       throw error;
     }
   };
+  export const getByName = async (name: string) => {
+    try {
+      const reviews = await prisma.patientReview.findMany({
+        where: { reviewedDoctor: { name } },
+      });
+      return reviews;
+    } catch (error) {
+      throw error;
+    }
+  };
 }
