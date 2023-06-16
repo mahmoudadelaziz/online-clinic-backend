@@ -44,9 +44,12 @@ userRouter.delete("/patient/:id", PatientController.deleteById);
 // doctor routes
 userRouter.get("/doctor", DoctorController.findAll);
 userRouter.get("/doctor/info", DoctorController.getCardInfo);
+// these 3 routes could be squashed into one
 userRouter.get("/doctor/spec", DoctorController.findBySpecialization);
-userRouter.get("/doctor/name", DoctorController.findByName);
+userRouter.get("/doctor/name", DoctorController.searchByName);
 userRouter.get("/doctor/location", DoctorController.findByLocation);
+
+userRouter.get("/doctor/:name", DoctorController.findByName);
 userRouter.post(
   "/doctor/signup",
   ...doctorSignupValidator,

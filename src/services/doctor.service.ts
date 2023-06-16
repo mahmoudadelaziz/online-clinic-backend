@@ -98,7 +98,7 @@ export namespace DoctorService {
       throw new Error(error);
     }
   };
-  export const findByName = async (name: string) => {
+  export const searchByName = async (name: string) => {
     try {
       const doctors = await prisma.doctor.findMany({
         where: {
@@ -118,7 +118,14 @@ export namespace DoctorService {
       throw new Error(error);
     }
   };
-
+  export const findByName = async (name: string) => {
+    try {
+      const doctor = await prisma.doctor.findFirst({ where: { name } });
+      return doctor;
+    } catch (error: any) {
+      throw new Error(error);
+    }
+  };
   interface GetCardInfoOptions {
     page: number;
     pageSize: number;
