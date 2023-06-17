@@ -136,12 +136,14 @@ export namespace DoctorController {
     }
   };
   export const searchByName = async (
+  export const searchByName = async (
     req: Request,
     res: Response,
     next: NextFunction
   ) => {
     try {
       const name = String(req.query.name);
+      const doctors = await DoctorService.searchByName(name);
       const doctors = await DoctorService.searchByName(name);
       return res.json({ doctors });
     } catch (error: any) {
@@ -198,4 +200,20 @@ export namespace DoctorController {
       next(new Error(error));
     }
   };
+<<<<<<< HEAD
+  export const findById = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const id = Number(req.params.id);
+      const doctor = await DoctorService.findById(id);
+      res.json({ doctor });
+    } catch (error: any) {
+      next(new Error(error));
+    }
+  };
+=======
+>>>>>>> 544ab7851af69a42fa444de27c5f3ffe7d8934dd
 }
