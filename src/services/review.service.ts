@@ -20,10 +20,10 @@ export namespace ReviewService {
       throw error;
     }
   };
-  export const getByName = async (name: string) => {
+  export const getByDoctorId = async (id: number) => {
     try {
       const reviews = await prisma.patientReview.findMany({
-        where: { reviewedDoctor: { name } },
+        where: { id },
       });
       return reviews;
     } catch (error) {

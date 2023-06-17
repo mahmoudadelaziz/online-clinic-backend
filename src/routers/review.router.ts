@@ -5,5 +5,5 @@ const reviewRouter = Router();
 
 reviewRouter.post("/", ...createReviewValidator, ReviewController.create);
 reviewRouter.get("/", ReviewController.findAll);
-reviewRouter.get("/:name", ReviewController.getByName);
+reviewRouter.get("/:id", ReviewController.getByDoctorId);
 export { reviewRouter };

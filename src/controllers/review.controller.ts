@@ -39,14 +39,14 @@ export namespace ReviewController {
       next(error);
     }
   };
-  export const getByName = async (
+  export const getByDoctorId = async (
     req: Request,
     res: Response,
     next: NextFunction
   ) => {
     try {
-      const name = req.params.name;
-      const reviews = await ReviewService.getByName(name);
+      const id = Number(req.params.id);
+      const reviews = await ReviewService.getByDoctorId(id);
       return res.json({ reviews });
     } catch (error) {
       next(error);
