@@ -93,3 +93,8 @@ model Appointment {
   prescription   Prescription? @relation(fields: [prescriptionId], references: [id])
   prescriptionId Int?          @unique
 }
+
+model Schedule {
+  doctorId Int      @id @default(autoincrement())
+  date     DateTime
+}
