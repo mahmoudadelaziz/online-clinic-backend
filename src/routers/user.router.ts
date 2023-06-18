@@ -51,12 +51,9 @@ userRouter.get("/doctor/name", DoctorController.searchByName);
 userRouter.get("/doctor/name", DoctorController.searchByName);
 userRouter.get("/doctor/location", DoctorController.findByLocation);
 
-<<<<<<< HEAD
 // userRouter.get("/doctor/:name", DoctorController.findByName);
 userRouter.get("/doctor/:id", DoctorController.findById);
-=======
 userRouter.get("/doctor/:name", DoctorController.findByName);
->>>>>>> 544ab7851af69a42fa444de27c5f3ffe7d8934dd
 userRouter.post(
   "/doctor/signup",
   ...doctorSignupValidator,

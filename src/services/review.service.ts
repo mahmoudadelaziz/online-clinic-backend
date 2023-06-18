@@ -24,10 +24,7 @@ export namespace ReviewService {
     try {
       const reviews = await prisma.patientReview.findMany({
         where: { id },
-<<<<<<< HEAD
         include: { reviewWriter: { select: { name: true } } },
-=======
->>>>>>> 544ab7851af69a42fa444de27c5f3ffe7d8934dd
       });
       return reviews;
     } catch (error) {
