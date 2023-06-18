@@ -53,6 +53,7 @@ userRouter.get("/doctor/location", DoctorController.findByLocation);
 
 // userRouter.get("/doctor/:name", DoctorController.findByName);
 userRouter.get("/doctor/:id", DoctorController.findById);
+//http://localhost:5000/user/doctor/{id} works
 userRouter.get("/doctor/:name", DoctorController.findByName);
 userRouter.post(
   "/doctor/signup",
