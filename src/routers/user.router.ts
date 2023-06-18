@@ -51,9 +51,10 @@ userRouter.get("/doctor/name", DoctorController.searchByName);
 userRouter.get("/doctor/location", DoctorController.findByLocation);
 
 // Find a specific doctor (by name or by ID)
-userRouter.get("/doctor/:id", DoctorController.findById);
-//http://localhost:5000/user/doctor/{id} works
-userRouter.get("/doctor/:name", DoctorController.findByName);
+userRouter.get("/doctor/id/:id", DoctorController.findById);
+// http://localhost:5000/user/doctor/id/{id} works
+userRouter.get("/doctor/name/:name", DoctorController.findByName);
+// Find a specific doctor (by name or by ID)
 
 userRouter.post(
   "/doctor/signup",
