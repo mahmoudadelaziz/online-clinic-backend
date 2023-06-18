@@ -1,4 +1,4 @@
-import { NextFunction, Response, Request } from "express";
+import { NextFunction, Request, Response } from "express";
 import { validationResult } from "express-validator";
 import { PatientService } from "../services/patient.service";
 export namespace PatientController {
@@ -10,6 +10,7 @@ export namespace PatientController {
     try {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
+        console.log(errors)
         const error = new Error("Bad Request");
         error.name = "Validation Error";
         throw error;

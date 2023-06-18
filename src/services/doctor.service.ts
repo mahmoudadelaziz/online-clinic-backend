@@ -1,6 +1,6 @@
-import { PrismaClient, Doctor } from "@prisma/client";
+import { Doctor, PrismaClient } from "@prisma/client";
+import { compare, hash } from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { hash, compare } from "bcryptjs";
 
 const prisma = new PrismaClient();
 

@@ -1,6 +1,6 @@
-import { PrismaClient, Moderator } from "@prisma/client";
+import { Moderator, PrismaClient } from "@prisma/client";
+import { compare, hash } from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { hash, compare } from "bcryptjs";
 
 const prisma = new PrismaClient();
 

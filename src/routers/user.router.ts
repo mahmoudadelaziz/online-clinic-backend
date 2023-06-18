@@ -1,18 +1,18 @@
 import { Router } from "express";
-import { PatientController } from "../controllers/patient.controller";
 import { DoctorController } from "../controllers/doctor.controller";
 import { ModeratorController } from "../controllers/moderator.controller";
+import { PatientController } from "../controllers/patient.controller";
 
 import {
-  patientSignupValidators,
   patientLoginValidator,
+  patientSignupValidators,
   patientUpdateValidator,
 } from "../validators/patient.validator";
 
 import {
+  doctorLoginValidator,
   doctorSignupValidator,
   doctorUpdateValidator,
-  doctorLoginValidator,
 } from "../validators/doctor.validator";
 
 import {
@@ -92,3 +92,4 @@ userRouter.put(
 userRouter.delete("/moderator/:id", ModeratorController.deleteById);
 
 export { userRouter };
+
