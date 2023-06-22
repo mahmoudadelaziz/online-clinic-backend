@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -17,22 +14,22 @@ model Patient {
   password     String
   email        String
   phoneNumber  String
-  reviews      PatientReview[]
-  appointments Appointment[]
   createdAt    DateTime        @default(now())
   updatedAt    DateTime        @updatedAt
+  appointments Appointment[]
+  reviews      PatientReview[]
 }
 
 model PatientReview {
   id             Int      @id @default(autoincrement())
-  reviewedDoctor Doctor   @relation(fields: [doctorId], references: [id])
   doctorId       Int
-  reviewWriter   Patient  @relation(fields: [patientId], references: [id])
   patientId      Int
   review         String
   rating         Float
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
+  reviewedDoctor Doctor   @relation(fields: [doctorId], references: [id])
+  reviewWriter   Patient  @relation(fields: [patientId], references: [id])
 }
 
 model Location {
@@ -56,12 +53,12 @@ model Doctor {
   subSpecialization String
   price1            Float?
   price2            Float?
-  appointments      Appointment[]
-  reviews           PatientReview[]
-  location          Location?       @relation(fields: [locationId], references: [id])
   locationId        Int?
   createdAt         DateTime        @default(now())
   updatedAt         DateTime        @updatedAt
+  appointments      Appointment[]
+  location          Location?       @relation(fields: [locationId], references: [id])
+  reviews           PatientReview[]
 }
 
 model Moderator {
@@ -74,22 +71,22 @@ model Moderator {
 
 model Prescription {
   id          Int          @id @default(autoincrement())
-  appointment Appointment?
   prognosis   String
   dosage      String
   notes       String
   date        DateTime     @default(now())
+  appointment Appointment?
 }
 
 model Appointment {
   id             Int           @id @default(autoincrement())
-  doctor         Doctor        @relation(fields: [doctorId], references: [id])
-  patient        Patient       @relation(fields: [patientId], references: [id])
   patientId      Int
   doctorId       Int
   type           String
   at             DateTime      @default(now())
   updatedAt      DateTime      @updatedAt
-  prescription   Prescription? @relation(fields: [prescriptionId], references: [id])
   prescriptionId Int?          @unique
+  doctor         Doctor        @relation(fields: [doctorId], references: [id])
+  patient        Patient       @relation(fields: [patientId], references: [id])
+  prescription   Prescription? @relation(fields: [prescriptionId], references: [id])
 }

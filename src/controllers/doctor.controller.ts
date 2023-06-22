@@ -11,6 +11,7 @@ export namespace DoctorController {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       const error = new Error("Bad Request");
+      res.json(errors.array()) // Show the validation errors
       error.name = "Validation Error";
       return next(error);
     }
@@ -18,13 +19,13 @@ export namespace DoctorController {
       const {
         name,
         email,
+        username,
+        password,
+        phoneNumber,
+        specialization,
         subSpecialization,
         price1 = null,
         price2 = null,
-        password,
-        phoneNumber,
-        username,
-        specialization,
         locationId,
         about,
       } = req.body;
