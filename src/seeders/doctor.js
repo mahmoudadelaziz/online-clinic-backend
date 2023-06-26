@@ -5,21 +5,23 @@ const { PrismaClient } = require("@prisma/client");
 async function seedFakeDoctors() {
   const doctors = [];
   const medicalSpecializations = [
-    "Cardiology",
-    "Dermatology",
-    "Endocrinology",
-    "Gastroenterology",
-    "Hematology",
-    "Infectious Disease",
-    "Nephrology",
-    "Neurology",
-    "Oncology",
-    "Orthopedics",
-    "Pediatrics",
-    "Psychiatry",
-    "Radiology",
-    "Surgery",
-    "Urology",
+    'Gynecology',
+    'Otorhinolaryngology',
+    'Ophthalmology',
+    'Pulmonology',
+    'Internal Medicine',
+    'Hematology',
+    'Cardiology',
+    'Psychiatry',
+    'Dermatology',
+    'Gastroenterology',
+    'Oncology',
+    'Orthopedics',
+    'Radiology',
+    'Nephrology',
+    'Urology',
+    'Endocrinology',
+    'Neurology',
   ];
   for (let i = 0; i < 100; i++) {
     // generate random data for each field
