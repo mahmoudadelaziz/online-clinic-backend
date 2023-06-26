@@ -47,7 +47,7 @@ model Location {
 model Doctor {
   id                Int             @id @default(autoincrement())
   name              String
-  gender            DateTime
+  gender            String
   username          String
   password          String
   email             String
