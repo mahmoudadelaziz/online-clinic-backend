@@ -22,8 +22,10 @@ export const patientSignupValidators = [
     .withMessage("Must be atleast 3 characters long")
     .isLength({ max: 12 })
     .withMessage("Must be no more than 12 characters long."),
-  body("email").isEmail().normalizeEmail(),
-  body("password").isString().isLength({ max: 16, min: 4 }),
+    body("email").isEmail().normalizeEmail(),
+    body("gender").isIn(["male", "female"]), // added
+    // body("dateOfBirth").isDate(), // added
+    body("password").isString().isLength({ max: 16, min: 4 }),
   body("phoneNumber").isMobilePhone("ar-EG"),
 ];
 export const patientUpdateValidator = [

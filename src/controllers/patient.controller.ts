@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { validationResult } from "express-validator";
 import { PatientService } from "../services/patient.service";
+
 export namespace PatientController {
   export const signup = async (
     req: Request,
@@ -10,12 +11,21 @@ export namespace PatientController {
     try {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
-        console.log(errors)
+        console.log(errors);
         const error = new Error("Bad Request");
         error.name = "Validation Error";
         throw error;
       }
-      const { name, email, password, phoneNumber, username, gender, dateOfBirth } = req.body;
+      let {
+        name,
+        email,
+        password,
+        phoneNumber,
+        username,
+        gender,
+        dateOfBirth,
+      } = req.body;
+      dateOfBirth = new Date(dateOfBirth); // Parse the date string
       const result = await PatientService.create({
         name,
         username,
@@ -23,7 +33,7 @@ export namespace PatientController {
         password,
         gender,
         phoneNumber,
-        dateOfBirth
+        dateOfBirth,
       });
       if (result) {
         res.cookie("jwt", result.token, {

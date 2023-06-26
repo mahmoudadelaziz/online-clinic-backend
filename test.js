@@ -1,25 +1,9 @@
+"use strict";
 // A separatee file for testing different stuff
-
-// -------------- Validating dates
-import { body } from "express-validator";
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Object.defineProperty(exports, "__esModule", { value: true });
 // ----------------- CREATING RANDOM PATIENTS --------------------
 // const { faker } = require("@faker-js/faker");
 // let i = 2;
-
 // function genPatient() {
 //   const nom =
 //     i % 2 === 0
@@ -46,10 +30,8 @@ import { body } from "express-validator";
 //     dateOfBirth,
 //     phoneNumber,
 //   };
-
 //   return patient;
 // }
-
 // console.log("A female patient:\n", genPatient());
 // i = 1
 // console.log("A male patient:\n", genPatient());
