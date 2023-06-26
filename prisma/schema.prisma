@@ -45,21 +45,23 @@ model Location {
 }
 
 model Doctor {
-  id             Int             @id @default(autoincrement())
-  name           String
-  username       String
-  password       String
-  email          String
-  phoneNumber    String
-  about          String?
-  specialization String
-  visitFee       Float?
-  locationId     Int?
-  createdAt      DateTime        @default(now())
-  updatedAt      DateTime        @updatedAt
-  appointments   Appointment[]
-  location       Location?       @relation(fields: [locationId], references: [id])
-  reviews        PatientReview[]
+  id                Int             @id @default(autoincrement())
+  name              String
+  username          String
+  password          String
+  email             String
+  phoneNumber       String
+  about             String?
+  specialization    String
+  visitFee          Float?
+  locationId        Int?
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+  workingHoursStart DateTime
+  workingHoursEnd   DateTime
+  appointments      Appointment[]
+  location          Location?       @relation(fields: [locationId], references: [id])
+  reviews           PatientReview[]
 }
 
 model Moderator {
