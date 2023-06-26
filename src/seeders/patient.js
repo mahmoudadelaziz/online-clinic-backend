@@ -35,7 +35,7 @@ async function seedFakePatients() {
   }
   try {
     const res = await prisma.patient.createMany({ data: patients });
-    console.log(`Inserted ${res.count} patient records in databse`);
+    console.log(`Inserted ${res.count} patient records in the Database`);
     prisma.$disconnect();
   } catch (error) {
     console.log(error);

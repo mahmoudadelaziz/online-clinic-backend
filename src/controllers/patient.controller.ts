@@ -25,7 +25,9 @@ export namespace PatientController {
         gender,
         dateOfBirth,
       } = req.body;
+      
       dateOfBirth = new Date(dateOfBirth); // Parse the date string
+      
       const result = await PatientService.create({
         name,
         username,
