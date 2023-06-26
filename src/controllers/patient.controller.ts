@@ -15,13 +15,15 @@ export namespace PatientController {
         error.name = "Validation Error";
         throw error;
       }
-      const { name, email, password, phoneNumber, username } = req.body;
+      const { name, email, password, phoneNumber, username, gender, dateOfBirth } = req.body;
       const result = await PatientService.create({
         name,
+        username,
         email,
         password,
+        gender,
         phoneNumber,
-        username,
+        dateOfBirth
       });
       if (result) {
         res.cookie("jwt", result.token, {

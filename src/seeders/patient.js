@@ -7,23 +7,30 @@ async function seedFakePatients() {
   let patients = [];
   for (let i = 0; i < 100; i++) {
     // generate random data for each field
-    const name = faker.name.fullName().trim().toLowerCase();
+    const name =
+      i % 2 === 0
+        ? faker.name.fullName({ sex: "female" }).trim().toLowerCase()
+        : faker.name.fullName({ sex: "male" }).trim().toLowerCase();
     const password = faker.internet.password(10);
+    const gender = i % 2 === 0 ? "female" : "male";
+    const dateOfBirth = faker.date.between('1958-01-01T00:00:00.000Z', '1992-01-01T00:00:00.000Z')
     const username = name.replace(/\W/g, "").toLowerCase().trim();
     const email = faker.internet.email().trim().toLowerCase();
     const phoneNumber = String(faker.phone.number("+20-10-####-####"))
       .replace(/-/g, "")
       .trim();
-    // create an object for the doctor
+    // create an object for the patient
     const patient = {
       name,
       password,
       username,
       email,
+      gender,
+      dateOfBirth,
       phoneNumber,
     };
 
-    // push the doctor object to the doctors array
+    // push the patient object to the patients array
     patients.push(patient);
   }
   try {
