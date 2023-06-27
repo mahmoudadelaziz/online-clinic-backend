@@ -23,7 +23,7 @@ export namespace ReviewService {
   export const getByDoctorId = async (id: number) => {
     try {
       const reviews = await prisma.patientReview.findMany({
-        where: { id },
+        where: { doctorId: id }, // edited
         include: { reviewWriter: { select: { name: true } } },
       });
       return reviews;
