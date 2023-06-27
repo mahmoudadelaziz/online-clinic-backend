@@ -5,27 +5,31 @@ const { PrismaClient } = require("@prisma/client");
 async function seedFakeDoctors() {
   const doctors = [];
   const medicalSpecializations = [
-    'Gynecology',
-    'Otorhinolaryngology',
-    'Ophthalmology',
-    'Pulmonology',
-    'Internal Medicine',
-    'Hematology',
-    'Cardiology',
-    'Psychiatry',
-    'Dermatology',
-    'Gastroenterology',
-    'Oncology',
-    'Orthopedics',
-    'Radiology',
-    'Nephrology',
-    'Urology',
-    'Endocrinology',
-    'Neurology',
+    "Gynecology",
+    "Otorhinolaryngology",
+    "Ophthalmology",
+    "Pulmonology",
+    "Internal Medicine",
+    "Hematology",
+    "Cardiology",
+    "Psychiatry",
+    "Dermatology",
+    "Gastroenterology",
+    "Oncology",
+    "Orthopedics",
+    "Radiology",
+    "Nephrology",
+    "Urology",
+    "Endocrinology",
+    "Neurology",
   ];
   for (let i = 0; i < 100; i++) {
     // generate random data for each field
-    const name = faker.name.fullName().trim().toLowerCase();
+    const name =
+      i % 2 === 0
+        ? faker.name.fullName({ sex: "female" }).trim().toLowerCase()
+        : faker.name.fullName({ sex: "male" }).trim().toLowerCase();
+    const gender = i % 2 === 0 ? "female" : "male";
     const password = faker.internet.password(10);
     const username = name.replace(/\W/g, "").toLowerCase().trim();
     const email = faker.internet.email().trim().toLowerCase();
@@ -38,8 +42,7 @@ async function seedFakeDoctors() {
     ]
       .trim()
       .toLowerCase();
-    const subSpecialization = specialization;
-    const price1 = faker.datatype.number({ min: 100, max: 500 });
+    const visitFee = faker.datatype.number({ min: 100, max: 500 });
     const locationId = faker.datatype.number({ min: 1, max: 40 });
 
     // create an object for the doctor
@@ -47,11 +50,11 @@ async function seedFakeDoctors() {
       name,
       password,
       username,
+      gender,
       email,
       phoneNumber,
       specialization,
-      subSpecialization,
-      price1,
+      visitFee,
       locationId,
     };
 
