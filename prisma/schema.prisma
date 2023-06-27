@@ -58,8 +58,8 @@ model Doctor {
   locationId        Int?
   createdAt         DateTime        @default(now())
   updatedAt         DateTime        @updatedAt
-  workingHoursStart DateTime
-  workingHoursEnd   DateTime
+  workingHoursStart String // (24h) Format, (pattern: 16:00) 
+  workingHoursEnd   String // (24h) Format, same pattern
   appointments      Appointment[]
   location          Location?       @relation(fields: [locationId], references: [id])
   reviews           PatientReview[]
