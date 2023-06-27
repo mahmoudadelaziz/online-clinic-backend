@@ -1,4 +1,5 @@
 const { faker } = require("@faker-js/faker");
+const { randomInt } = require("crypto");
 
 const { PrismaClient } = require("@prisma/client");
 // create an array for the doctors
