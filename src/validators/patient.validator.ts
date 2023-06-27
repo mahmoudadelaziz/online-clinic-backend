@@ -13,7 +13,7 @@ export const patientLoginValidator = [
   body("password").isString().isLength({ max: 16, min: 4 }),
 ];
 export const patientSignupValidators = [
-  body(["name", "username"])
+  body("username")
     .isString()
     .trim()
     .toLowerCase()
@@ -22,6 +22,14 @@ export const patientSignupValidators = [
     .withMessage("Must be atleast 3 characters long")
     .isLength({ max: 12 })
     .withMessage("Must be no more than 12 characters long."),
+  body("name")
+    .isString()
+    .trim()
+    .escape()
+    .isLength({ min: 3 })
+    .withMessage("Must be atleast 3 characters long")
+    .isLength({ max: 60 })
+    .withMessage("Must be no more than 60 characters long."),
     body("email").isEmail().normalizeEmail(),
     body("gender").isIn(["male", "female"]), // added
     // body("dateOfBirth").isDate(), // added
