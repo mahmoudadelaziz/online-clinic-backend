@@ -13,8 +13,8 @@ async function seedFakeLocations() {
     parsedData = parsedData.map((location) => {
       return {
         ...location,
-        city: location.city.toLowerCase().trim(),
-        governorate: location.governorate.toLowerCase().trim(),
+        city: location.city.trim(),
+        governorate: location.governorate.trim(),
       };
     });
     const res = await prisma.location.createMany({ data: parsedData });
