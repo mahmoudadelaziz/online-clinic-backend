@@ -1,4 +1,9 @@
 // Clearing up the database (for reset and error fixing)
+
+// WARNING!! EXECUTE WITH EXTREME CAUTION!!
+// THIS DELETES RECORDS BUT DOES (NOT) RESET THE DB
+// THE IDs WILL CONTINUE TO INCREMENT FROM THE PREVIOUSLY MAXIMUM VALUE BEFORE DELETION!!
+
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
@@ -58,10 +63,7 @@ async function deleteAllLocations() {
   }
 }
 
-
-
-
-deleteAllPatients()
-deleteAllLocations()
-deleteAllPatientReview()
-deleteAllDoctors()
+deleteAllPatients();
+deleteAllLocations();
+deleteAllPatientReview();
+deleteAllDoctors();
