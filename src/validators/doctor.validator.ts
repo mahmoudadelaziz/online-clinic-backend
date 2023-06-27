@@ -28,6 +28,8 @@ export const doctorSignupValidator = [
   body("password").isString().isLength({ max: 16, min: 4 }),
   body("phoneNumber").isMobilePhone("ar-EG"),
   body("specialization").isString(),
+  body("workingHoursStart").isString().matches(/[0-2]?[0-9]:[0-9][0-9]/gm), // added
+  body("workingHoursEnd").isString().matches(/[0-2]?[0-9]:[0-9][0-9]/gm), // added
   body("visitFee").isFloat().optional(), // updated
   body("locationId").isNumeric().notEmpty(),
 ];
