@@ -173,7 +173,6 @@ export namespace DoctorService {
           id: true,
           name: true,
           specialization: true,
-          subSpecialization: true,
           reviews: {
             select: {
               rating: true,

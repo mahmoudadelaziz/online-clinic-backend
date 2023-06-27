@@ -20,25 +20,31 @@ export namespace DoctorController {
         name,
         email,
         username,
+        gender,
         password,
         phoneNumber,
         specialization,
-        subSpecialization,
-        price1 = null,
-        price2 = null,
+        workingHoursStart,
+        workingHoursEnd,
+        visitFee = null,
         locationId,
         about,
       } = req.body;
+      // NOTE: workingHoursStart, and workingHoursEnd will be sent as strings
+      // They must be parsed here
+      // (Code for parsing)
+      
       const result = await DoctorService.create({
         name,
         email,
+        gender,
         password,
         phoneNumber,
         username,
         specialization,
-        subSpecialization,
-        price1,
-        price2,
+        workingHoursStart,
+        workingHoursEnd,
+        visitFee,
         locationId,
         about,
       });
