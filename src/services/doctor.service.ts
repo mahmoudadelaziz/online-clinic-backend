@@ -172,6 +172,7 @@ export namespace DoctorService {
         select: {
           id: true,
           name: true,
+          location: true,
           specialization: true,
           reviews: {
             select: {
