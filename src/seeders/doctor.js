@@ -28,8 +28,8 @@ async function seedFakeDoctors() {
     // generate random data for each field
     const name =
       i % 2 === 0
-        ? faker.name.fullName({ sex: "female" }).trim().toLowerCase()
-        : faker.name.fullName({ sex: "male" }).trim().toLowerCase();
+        ? faker.name.fullName({ sex: "female" }).trim()
+        : faker.name.fullName({ sex: "male" }).trim()
     const gender = i % 2 === 0 ? "female" : "male";
     const password = faker.internet.password(10);
     const username = name.replace(/\W/g, "").toLowerCase().trim();
@@ -42,7 +42,6 @@ async function seedFakeDoctors() {
       Math.floor(Math.random() * medicalSpecializations.length)
     ]
       .trim()
-      .toLowerCase();
     const visitFee = faker.datatype.number({ min: 100, max: 500 });
     const workingHoursStart = randomInt(24).toString()+':'+"00" // added
     const workingHoursEnd = randomInt(24).toString()+':'+"00" // addedd

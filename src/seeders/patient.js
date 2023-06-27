@@ -9,8 +9,8 @@ async function seedFakePatients() {
     // generate random data for each field
     const name =
       i % 2 === 0
-        ? faker.name.fullName({ sex: "female" }).trim().toLowerCase()
-        : faker.name.fullName({ sex: "male" }).trim().toLowerCase();
+        ? faker.name.fullName({ sex: "female" }).trim()
+        : faker.name.fullName({ sex: "male" }).trim()
     const password = faker.internet.password(10);
     const gender = i % 2 === 0 ? "female" : "male";
     const dateOfBirth = faker.date.between('1958-01-01T00:00:00.000Z', '1992-01-01T00:00:00.000Z')
