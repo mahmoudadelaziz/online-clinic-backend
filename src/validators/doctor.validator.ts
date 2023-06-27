@@ -45,7 +45,6 @@ export const doctorUpdateValidator = [
   body(["firstName", "lastName", "username"])
     .isString()
     .trim()
-    .toLowerCase()
     .escape()
     .isLength({ min: 3 })
     .withMessage("Must be atleast 3 characters long")
