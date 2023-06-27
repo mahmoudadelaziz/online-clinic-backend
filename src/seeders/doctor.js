@@ -43,6 +43,8 @@ async function seedFakeDoctors() {
       .trim()
       .toLowerCase();
     const visitFee = faker.datatype.number({ min: 100, max: 500 });
+    const workingHoursStart = randomInt(24).toString()+':'+"00" // added
+    const workingHoursEnd = randomInt(24).toString()+':'+"00" // addedd
     const locationId = faker.datatype.number({ min: 1, max: 40 });
 
     // create an object for the doctor
@@ -51,6 +53,8 @@ async function seedFakeDoctors() {
       password,
       username,
       gender,
+      workingHoursStart,
+      workingHoursEnd,
       email,
       phoneNumber,
       specialization,
