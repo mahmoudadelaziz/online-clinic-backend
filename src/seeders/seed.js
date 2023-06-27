@@ -5,8 +5,8 @@ const { seedFakePatients } = require("./patient");
 
 async function main() {
   await seedFakeLocations();
-  await seedFakeDoctors();
   await seedFakePatients();
+  await seedFakeDoctors();
   await seedFakeReviews();
 }
 main();
