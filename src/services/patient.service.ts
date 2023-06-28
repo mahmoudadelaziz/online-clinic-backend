@@ -23,7 +23,7 @@ export namespace PatientService {
         data: { ...user, password: hashedPassword },
       });
       const token = jwt.sign(
-        user,
+        newUser,
         process.env.JWT_SECRET?.toString() as jwt.Secret
       );
       return { token, username: newUser.username };
@@ -40,6 +40,7 @@ export namespace PatientService {
           username: userData.username,
         },
       });
+      console.log(user);
       if (!user) throw new Error("Either username or password are wrong.");
       //compare password
       const isCorrectPassword = await compare(userData.password, user.password);

@@ -2,6 +2,7 @@ import { Router } from "express";
 import { DoctorController } from "../controllers/doctor.controller";
 import { ModeratorController } from "../controllers/moderator.controller";
 import { PatientController } from "../controllers/patient.controller";
+import { authorize } from "../utils/authorization";
 
 import {
   patientLoginValidator,
@@ -34,7 +35,11 @@ userRouter.post(
   ...patientLoginValidator,
   PatientController.login
 );
-userRouter.get("/patient/:id", PatientController.findById);
+userRouter.get(
+  "/patient/:id",
+  authorize.authorizeUser,
+  PatientController.findById
+);
 userRouter.put(
   "/patient/:id",
   ...patientUpdateValidator,
@@ -52,7 +57,11 @@ userRouter.get("/doctor/name", DoctorController.searchByName);
 userRouter.get("/doctor/location", DoctorController.findByLocation);
 
 // Find a specific doctor (by name or by ID)
-userRouter.get("/doctor/id/:id", DoctorController.findById);
+userRouter.get(
+  "/doctor/id/:id",
+  authorize.authorizeUser,
+  DoctorController.findById
+);
 // http://localhost:5000/user/doctor/id/{id} works
 userRouter.get("/doctor/name/:name", DoctorController.findByName);
 // Find a specific doctor (by name or by ID)

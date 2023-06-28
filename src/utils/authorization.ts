@@ -1,10 +1,10 @@
 import dotenv from "dotenv";
 import { NextFunction, Request, Response } from "express";
-import jwt from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
 dotenv.config();
 
-export namespace auth {
-  export const authenticate = (
+export namespace authorize {
+  export const authorizeUser = (
     req: Request,
     res: Response,
     next: NextFunction
@@ -12,7 +12,13 @@ export namespace auth {
     try {
       const authorizationHeader = req.headers.authorization;
       const token = authorizationHeader?.split(" ")[1];
-      jwt.verify(token as string, process.env.JWT_SECRET as string);
+      const payload = jwt.verify(
+        token as string,
+        process.env.JWT_SECRET as string
+      ) as JwtPayload;
+      if (req.params.id != payload.id) {
+        throw new Error("Unauthorized access");
+      }
       next();
     } catch (err) {
       res.status(401);
