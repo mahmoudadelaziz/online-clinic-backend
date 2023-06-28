@@ -1,4 +1,4 @@
-import { NextFunction, Response, Request } from "express";
+import { NextFunction, Request, Response } from "express";
 import { validationResult } from "express-validator";
 import { DoctorService } from "../services/doctor.service";
 
@@ -11,7 +11,7 @@ export namespace DoctorController {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       const error = new Error("Bad Request");
-      res.json(errors.array()) // Show the validation errors
+      res.json(errors.array()); // Show the validation errors
       error.name = "Validation Error";
       return next(error);
     }
@@ -33,7 +33,7 @@ export namespace DoctorController {
       // NOTE: workingHoursStart, and workingHoursEnd will be sent as strings
       // They must be parsed here
       // (Code for parsing)
-      
+
       const result = await DoctorService.create({
         name,
         email,
@@ -207,7 +207,7 @@ export namespace DoctorController {
       next(new Error(error));
     }
   };
-  
+
   export const findById = async (
     req: Request,
     res: Response,

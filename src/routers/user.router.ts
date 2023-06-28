@@ -92,4 +92,3 @@ userRouter.put(
 userRouter.delete("/moderator/:id", ModeratorController.deleteById);
 
 export { userRouter };
-
