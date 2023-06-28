@@ -14,7 +14,8 @@ export namespace AppointmentController {
       if (!errors.isEmpty()) {
         const error = new Error("Bad Request");
         error.name = "Validation Error";
-        next(error);
+        throw error;
+        // next(error); Executes the create service anyway
       }
       const newAppointment = await AppointmentService.create({
         doctorId,
