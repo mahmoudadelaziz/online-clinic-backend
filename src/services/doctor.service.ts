@@ -128,7 +128,6 @@ export namespace DoctorService {
   };
   export const findById = async (id: number) => {
     try {
-      console.log("hello");
       const doctor = await prisma.doctor.findFirst({ where: { id } });
       return doctor;
     } catch (error: any) {

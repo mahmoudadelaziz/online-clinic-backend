@@ -22,7 +22,10 @@ export namespace PatientService {
       const newUser = await prisma.patient.create({
         data: { ...user, password: hashedPassword },
       });
-      const token = jwt.sign(user, process.env.JWT_SECRET?.toString() as jwt.Secret);
+      const token = jwt.sign(
+        user,
+        process.env.JWT_SECRET?.toString() as jwt.Secret
+      );
       return { token, username: newUser.username };
     } catch (error: any) {
       throw new Error(error);
@@ -44,8 +47,20 @@ export namespace PatientService {
       if (!isCorrectPassword)
         throw new Error("Either username or password are wrong.");
 
-      const token = jwt.sign(user, process.env.JWT_SECRET?.toString() as jwt.Secret);
+      const token = jwt.sign(
+        user,
+        process.env.JWT_SECRET?.toString() as jwt.Secret
+      );
       return token;
+    } catch (error: any) {
+      throw new Error(error);
+    }
+  };
+
+  export const findById = async (id: number) => {
+    try {
+      const patient = await prisma.patient.findFirst({ where: { id } });
+      return patient;
     } catch (error: any) {
       throw new Error(error);
     }

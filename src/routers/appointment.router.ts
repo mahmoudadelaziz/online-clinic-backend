@@ -8,7 +8,7 @@ const appointmentRouter = Router();
 appointmentRouter.post(
   "/",
   ...appointmentCreateValidator,
-  auth.authentication,
+  auth.authenticate,
   AppointmentController.create
 );
 export { appointmentRouter };

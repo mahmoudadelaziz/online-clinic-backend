@@ -25,9 +25,9 @@ export namespace PatientController {
         gender,
         dateOfBirth,
       } = req.body;
-      
+
       dateOfBirth = new Date(dateOfBirth); // Parse the date string
-      
+
       const result = await PatientService.create({
         name,
         username,
@@ -70,6 +70,23 @@ export namespace PatientController {
         message: "User Logged In Successfully",
         token,
       });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  export const findById = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    const id = parseInt(req.params.id);
+    if (!id) {
+      return next(new Error("User id must be provided"));
+    }
+    try {
+      const patient = await PatientService.findById(id);
+      return res.json({ patient });
     } catch (error) {
       next(error);
     }
