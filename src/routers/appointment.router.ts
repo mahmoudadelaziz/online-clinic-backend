@@ -12,5 +12,5 @@ appointmentRouter.post(
   AppointmentController.create
 );
 
-appointmentRouter.get("/", AppointmentController.validate);
+appointmentRouter.get("/", AppointmentController.find);
 export { appointmentRouter };

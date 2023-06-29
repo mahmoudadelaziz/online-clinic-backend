@@ -17,7 +17,7 @@ export namespace AppointmentService {
   };
 
   type appointmentData = Pick<Appointment, "patientId" | "doctorId">;
-  export const validate = async (data: appointmentData) => {
+  export const find = async (data: appointmentData) => {
     try {
       const appointment = await prisma.appointment.findMany({
         where: {

@@ -30,14 +30,14 @@ export namespace AppointmentController {
     }
   };
 
-  export const validate = async (
+  export const find = async (
     req: Request,
     res: Response,
     next: NextFunction
   ) => {
     try {
       const { doctorId, patientId } = req.body;
-      const appointments = await AppointmentService.validate({
+      const appointments = await AppointmentService.find({
         doctorId,
         patientId,
       });
