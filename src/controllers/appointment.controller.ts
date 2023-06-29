@@ -30,6 +30,7 @@ export namespace AppointmentController {
     }
   };
 
+  // Extra utility to authorize reviewers who had a past appointment only.
   export const find = async (
     req: Request,
     res: Response,
@@ -41,7 +42,13 @@ export namespace AppointmentController {
         doctorId,
         patientId,
       });
-      return res.json({ appointments });
+      if (appointments.length == 0) {
+        throw new Error(
+          "Not authorized for a review, finish your first appointment"
+        );
+      }
+      // res.json({ appointments });
+      next();
     } catch (error: any) {
       next(error);
     }
