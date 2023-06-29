@@ -29,4 +29,21 @@ export namespace AppointmentController {
       next(error);
     }
   };
+
+  export const validate = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const { doctorId, patientId } = req.body;
+      const appointments = await AppointmentService.validate({
+        doctorId,
+        patientId,
+      });
+      return res.json({ appointments });
+    } catch (error: any) {
+      next(error);
+    }
+  };
 }

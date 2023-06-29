@@ -19,9 +19,9 @@ export namespace DoctorService {
       if (userExists) {
         throw new Error("A user with this email already exists");
       }
-      const hasedPassword = await hash(doctor.password, 10);
+      const hashedPassword = await hash(doctor.password, 10);
       const newDoctor = await prisma.doctor.create({
-        data: { ...doctor, password: hasedPassword },
+        data: { ...doctor, password: hashedPassword },
       });
       const token = jwt.sign(doctor, process.env.JWT_SECRET as jwt.Secret);
       return { token, username: newDoctor.username };

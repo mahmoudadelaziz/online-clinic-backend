@@ -15,4 +15,22 @@ export namespace AppointmentService {
       throw new Error(error);
     }
   };
+
+  type appointmentData = Pick<Appointment, "patientId" | "doctorId">;
+  export const validate = async (data: appointmentData) => {
+    try {
+      const appointment = await prisma.appointment.findMany({
+        where: {
+          patientId: data.patientId,
+          doctorId: data.doctorId,
+          at: {
+            lt: new Date(),
+          },
+        },
+      });
+      return appointment;
+    } catch (error: any) {
+      throw new Error(error);
+    }
+  };
 }
