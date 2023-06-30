@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { AppointmentController } from "../controllers/appointment.controller";
 import { ReviewController } from "../controllers/review.controller";
+import { authorize } from "../utils/authorization";
 import { createReviewValidator } from "../validators/review.validator";
 const reviewRouter = Router();
 
@@ -11,5 +12,14 @@ reviewRouter.post(
   ReviewController.create
 );
 reviewRouter.get("/", ReviewController.findAll);
-reviewRouter.get("/:id", ReviewController.getByDoctorId);
+reviewRouter.get(
+  "/doctor",
+  authorize.authorizeUser,
+  ReviewController.getByDoctorId
+);
+reviewRouter.get(
+  "/patient",
+  authorize.authorizeUser,
+  ReviewController.getByPatientId
+);
 export { reviewRouter };
