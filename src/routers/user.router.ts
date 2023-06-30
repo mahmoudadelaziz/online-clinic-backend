@@ -63,11 +63,7 @@ userRouter.get(
 );
 
 // Find a specific doctor (by name or by ID)
-userRouter.get(
-  "/doctor/id/:id",
-  authorize.authorizeUser,
-  DoctorController.findById
-);
+userRouter.get("/doctor/id/:id", DoctorController.findById);
 // http://localhost:5000/user/doctor/id/{id} works
 userRouter.get("/doctor/name/:name", DoctorController.findByName);
 // Find a specific doctor (by name or by ID)
