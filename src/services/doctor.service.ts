@@ -23,7 +23,7 @@ export namespace DoctorService {
       const newDoctor = await prisma.doctor.create({
         data: { ...doctor, password: hashedPassword },
       });
-      const token = jwt.sign(doctor, process.env.JWT_SECRET as jwt.Secret);
+      const token = jwt.sign(newDoctor, process.env.JWT_SECRET as jwt.Secret);
       return { token, username: newDoctor.username };
     } catch (error: any) {
       throw new Error(error);

@@ -228,9 +228,9 @@ export namespace DoctorController {
     next: NextFunction
   ) => {
     try {
-      const id = Number(req.params.id);
-      const doctor = await DoctorService.findById(id);
-      res.json({ doctor });
+      const id = Number(req.body.id);
+      const doctorProfile = await DoctorService.findById(id);
+      res.json({ doctorProfile });
     } catch (error: any) {
       next(new Error(error));
     }
