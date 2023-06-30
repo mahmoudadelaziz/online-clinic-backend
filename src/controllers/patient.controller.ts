@@ -75,7 +75,7 @@ export namespace PatientController {
     }
   };
 
-  export const findById = async (
+  export const findByToken = async (
     req: Request,
     res: Response,
     next: NextFunction

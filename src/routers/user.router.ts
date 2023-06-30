@@ -35,7 +35,11 @@ userRouter.post(
   ...patientLoginValidator,
   PatientController.login
 );
-userRouter.get("/patient", authorize.authorizeUser, PatientController.findById);
+userRouter.get(
+  "/patient/profile",
+  authorize.authorizeUser,
+  PatientController.findByToken
+);
 userRouter.put(
   "/patient/:id",
   ...patientUpdateValidator,
@@ -51,6 +55,12 @@ userRouter.get("/doctor/info", DoctorController.getCardInfo);
 userRouter.get("/doctor/spec", DoctorController.findBySpecialization);
 userRouter.get("/doctor/name", DoctorController.searchByName);
 userRouter.get("/doctor/location", DoctorController.findByLocation);
+
+userRouter.get(
+  "/doctor/profile",
+  authorize.authorizeUser,
+  DoctorController.findByToken
+);
 
 // Find a specific doctor (by name or by ID)
 userRouter.get(

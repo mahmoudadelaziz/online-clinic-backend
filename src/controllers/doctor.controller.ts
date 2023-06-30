@@ -221,4 +221,18 @@ export namespace DoctorController {
       next(new Error(error));
     }
   };
+
+  export const findByToken = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const id = Number(req.params.id);
+      const doctor = await DoctorService.findById(id);
+      res.json({ doctor });
+    } catch (error: any) {
+      next(new Error(error));
+    }
+  };
 }
