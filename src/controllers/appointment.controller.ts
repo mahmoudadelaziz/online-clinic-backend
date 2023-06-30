@@ -53,4 +53,36 @@ export namespace AppointmentController {
       next(error);
     }
   };
+
+  export const findByDoctor = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const doctorId = req.body.id;
+      const appointments = await AppointmentService.findByDoctor({
+        doctorId,
+      });
+      res.json({ appointments });
+    } catch (error: any) {
+      next(error);
+    }
+  };
+
+  export const findByPatient = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const patientId = req.body.id;
+      const appointments = await AppointmentService.findByPatient({
+        patientId,
+      });
+      res.json({ appointments });
+    } catch (error: any) {
+      next(error);
+    }
+  };
 }

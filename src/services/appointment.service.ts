@@ -33,4 +33,30 @@ export namespace AppointmentService {
       throw new Error(error);
     }
   };
+
+  export const findByDoctor = async (data: Pick<Appointment, "doctorId">) => {
+    try {
+      const appointments = await prisma.appointment.findMany({
+        where: {
+          doctorId: Number(data.doctorId),
+        },
+      });
+      return appointments;
+    } catch (error: any) {
+      throw new Error(error);
+    }
+  };
+
+  export const findByPatient = async (data: Pick<Appointment, "patientId">) => {
+    try {
+      const appointments = await prisma.appointment.findMany({
+        where: {
+          patientId: Number(data.patientId),
+        },
+      });
+      return appointments;
+    } catch (error: any) {
+      throw new Error(error);
+    }
+  };
 }
