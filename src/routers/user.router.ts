@@ -35,11 +35,7 @@ userRouter.post(
   ...patientLoginValidator,
   PatientController.login
 );
-userRouter.get(
-  "/patient/:id",
-  authorize.authorizeUser,
-  PatientController.findById
-);
+userRouter.get("/patient", authorize.authorizeUser, PatientController.findById);
 userRouter.put(
   "/patient/:id",
   ...patientUpdateValidator,

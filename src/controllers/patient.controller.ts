@@ -80,11 +80,8 @@ export namespace PatientController {
     res: Response,
     next: NextFunction
   ) => {
-    const id = parseInt(req.params.id);
-    if (!id) {
-      return next(new Error("User id must be provided"));
-    }
     try {
+      const id = req.body.id;
       const patient = await PatientService.findById(id);
       return res.json({ patient });
     } catch (error) {

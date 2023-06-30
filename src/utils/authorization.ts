@@ -16,9 +16,7 @@ export namespace authorize {
         token as string,
         process.env.JWT_SECRET as string
       ) as JwtPayload;
-      if (req.params.id != payload.id) {
-        throw new Error("Unauthorized access");
-      }
+      req.body.id = payload.id;
       next();
     } catch (err) {
       res.status(401);
