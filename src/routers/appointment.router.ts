@@ -23,5 +23,6 @@ appointmentRouter.get(
   "/patient",
   authorize.authorizeUser,
   AppointmentController.findByPatient
-);
+  );
+appointmentRouter.delete("/", AppointmentController.deleteById);
 export { appointmentRouter };
